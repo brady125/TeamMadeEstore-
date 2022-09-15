@@ -5,7 +5,8 @@ An online E-store system built in Java 8=>11 and ___ _replace with other platfor
   
 ## Team
 
-- Marco Rossi
+- Brady Morin
+- Aashwin Katiyar
 - Erica Libby
 - Logan Holmes
 - Peyton Wagner

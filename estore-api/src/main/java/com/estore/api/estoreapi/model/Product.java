@@ -1,5 +1,21 @@
 package com.estore.api.estoreapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Product {
-    
+    @JsonProperty("name") private String name;
+    @JsonProperty("species") private String species;
+    @JsonProperty("color") private String color;
+    @JsonProperty("age") private int age;
+    @JsonProperty("price") private float price;
+    @JsonProperty("description") private String description;
+
+    public Product(@JsonProperty("name") String name, @JsonProperty("species") String species, @JsonProperty("color") String color, @JsonProperty("age") int age, @JsonProperty("price") float price, @JsonProperty("description") String description){
+        this.name = name;
+        this.species = species;
+        this.color = color;
+        this.age = age;
+        this.price = price;
+        this.description = description;
+    }
 }

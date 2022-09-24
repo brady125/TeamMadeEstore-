@@ -1,5 +1,138 @@
 package com.estore.api.estoreapi.persistance;
 
-public class ProductFileDAO {
+import com.estore.api.estoreapi.model.Product;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.logging.Logger;
+
+import org.springframework.beans.factory.annotation.Value;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
+
+public class ProductFileDAO implements ProductDAO{
+    private static final Logger LOG = Logger.getLogger(ProductFileDAO.class.getName());
+    Map<Integer, Product> inventory;
     
+    private ObjectMapper objectMapper;
+    private static int nextId;
+    private String filename;
+
+    
+    public ProductFileDAO(@Value("${inventory.file}") String filename, ObjectMapper objectMapper) throws IOException {
+        this.filename = filename;
+        this.objectMapper = objectMapper;
+        load();
+    }
+    
+    private synchronized static int nextId() {
+        int id = nextId;
+        nextId++;
+        return id;
+    }
+
+    private Product[] getInventoryArray() {
+        return getInventoryArray(null);
+    }
+
+    private Product[] getInventoryArray(String containsText){
+        ArrayList<Product> inventoryList = new ArrayList<>();
+
+        for(Product product : inventory.values()) {
+            if (containsText == null || product.getName().contains(containsText)) {
+                inventoryList.add(product);
+            }
+
+        }
+        Product[] inventoryArray = new Product[inventoryList.size()];
+        inventoryList.toArray(inventoryArray);
+        return inventoryArray;
+    }
+
+    private boolean save() throws IOException {
+        Product[] inventoryArray = getInventoryArray();
+
+        objectMapper.writeValue(new File(filename), inventoryArray);
+        return true;
+    }
+    
+    private boolean load() throws IOException{
+        inventory = new TreeMap<>();
+        nextId = 0;
+
+        Product[] inventoryArray = objectMapper.readValue(new File(filename), Product[].class);
+
+        for(Product product : inventoryArray) {
+            inventory.put(product.getId(), product);
+            if(product.getId() > nextId){
+                nextId = product.getId();
+            }
+        }
+        ++nextId;
+        return true;
+    }
+
+    @Override
+    public Product[] getInventory() {
+        synchronized(inventory){
+            return getInventoryArray();
+        }
+    }
+
+    @Override
+    public Product[] findProducts(String containsText) {
+        synchronized(inventory) {
+            return getInventoryArray();
+        }
+    }
+
+    @Override
+    public Product getProduct(int id){
+        synchronized(inventory){
+            if(inventory.containsKey(id)){
+                return inventory.get(id);
+            }
+            else{
+                return null;
+            }
+        }
+    }
+
+    @Override
+    public Product createProduct(Product product) throws IOException {
+        synchronized(inventory) {
+            Product newProduct = new Product((nextId), product.getName(), product.getSpecies(), product.getColor(), product.getAge(), product.getPrice(), product.getDescription());
+            inventory.put(newProduct.getId(), newProduct);
+            save();
+            return newProduct;
+        }
+    }
+
+    @Override
+    public Product updateProduct(Product product) throws IOException {
+        synchronized(inventory) {
+            if(inventory.containsKey(product.getId()) == false)
+                return null;
+            
+            inventory.put(product.getId(), product);
+            save();
+            return product;
+        }
+    }
+
+    @Override
+    public Boolean deleteProduct(int id) throws IOException {
+        synchronized(inventory) {
+            if(inventory.containsKey(id)) {
+                inventory.remove(id);
+                return save();
+            }
+            else
+                return false;
+        }
+    }
 }
+

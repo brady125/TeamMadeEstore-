@@ -33,8 +33,13 @@ public class ProductController {
         LOG.info("POST /products " + product);
 
         if (product != null){
-            Product newProduct =  productDAO.createProduct(product);
-            return new ResponseEntity<Product>(newProduct, HttpStatus.CREATED);
+            try {
+                Product newProduct =  productDAO.createProduct(product);
+                return new ResponseEntity<Product>(newProduct, HttpStatus.CREATED);
+            } catch(IOException e) {
+                LOG.log(Level.SEVERE,e.getLocalizedMessage());
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
         else{
             return new ResponseEntity<>(HttpStatus.CONFLICT);

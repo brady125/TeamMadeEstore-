@@ -24,4 +24,14 @@ public class Product {
     public String getName() {return name;}
 
     public int getId() {return id;}
+
+    public String getSpecies() {return species;}
+
+    public String getColor() {return color;}
+
+    public int getAge() {return age;}
+
+    public float getPrice() {return price;}
+
+    public String getDescription() {return description;}
 }

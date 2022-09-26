@@ -66,14 +66,10 @@ public class ProductController {
 
     @GetMapping("")
     public ResponseEntity<Product[]> getInventory() {
-        LOG.info("GET /products");
+        LOG.info("GET /product/");
         try {
             Product[] inventory = productDAO.getInventory();
-            if (inventory != null) {
-                return new ResponseEntity<Product[]>(inventory, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
+            return new ResponseEntity<Product[]>(inventory, HttpStatus.OK);
 
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());

@@ -34,11 +34,7 @@ public class ProductFileDAO implements ProductDAO{
         return id;
     }
 
-    private Product[] getInventoryArray() {
-        return getInventoryArray(null);
-    }
-
-    private Product[] getInventoryArray(String containsText) {
+    private Product[] getInventoryArray(String containsText){
         ArrayList<Product> inventoryList = new ArrayList<>();
         for(Product product : inventory.values()) {
             // gets all the fields but price and puts them into a string called fields
@@ -58,11 +54,12 @@ public class ProductFileDAO implements ProductDAO{
         }
         Product[] inventoryArray = new Product[inventoryList.size()];
         inventoryList.toArray(inventoryArray);
+        System.out.println(inventoryList.size() + " ||| " + inventoryArray + " ||| " + inventoryList);
         return inventoryArray;
     }
 
     private boolean save() throws IOException {
-        Product[] inventoryArray = getInventoryArray();
+        Product[] inventoryArray = getInventoryArray(null);
 
         objectMapper.writeValue(new File(filename), inventoryArray);
         return true;
@@ -87,7 +84,7 @@ public class ProductFileDAO implements ProductDAO{
     @Override
     public Product[] getInventory() {
         synchronized(inventory){
-            return getInventoryArray();
+            return getInventoryArray(null);
         }
     }
 
@@ -101,19 +98,15 @@ public class ProductFileDAO implements ProductDAO{
     @Override
     public Product getProduct(int id){
         synchronized(inventory){
-            if(inventory.containsKey(id)){
-                return inventory.get(id);
-            }
-            else{
-                return null;
-            }
+            return inventory.getOrDefault(id, null);
         }
     }
 
     @Override
     public Product createProduct(Product product) throws IOException {
         synchronized(inventory) {
-            Product newProduct = new Product(nextId(), product.getName(), product.getSpecies(), product.getColor(), product.getAge(), product.getPrice(), product.getDescription());
+            Product newProduct = new Product(nextId(), product.getName(), product.getSpecies(), product.getColor(),
+                    product.getAge(), product.getPrice(), product.getDescription());
             inventory.put(newProduct.getId(), newProduct);
             save();
             return newProduct;

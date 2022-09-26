@@ -34,10 +34,6 @@ public class ProductFileDAO implements ProductDAO{
         return id;
     }
 
-    private Product[] getInventoryArray() {
-        return getInventoryArray(null);
-    }
-
     private Product[] getInventoryArray(String containsText){
         ArrayList<Product> inventoryList = new ArrayList<>();
 
@@ -53,7 +49,7 @@ public class ProductFileDAO implements ProductDAO{
     }
 
     private boolean save() throws IOException {
-        Product[] inventoryArray = getInventoryArray();
+        Product[] inventoryArray = getInventoryArray(null);
 
         objectMapper.writeValue(new File(filename), inventoryArray);
         return true;
@@ -78,14 +74,14 @@ public class ProductFileDAO implements ProductDAO{
     @Override
     public Product[] getInventory() {
         synchronized(inventory){
-            return getInventoryArray();
+            return getInventoryArray(null);
         }
     }
 
     @Override
     public Product[] findProducts(String containsText) {
         synchronized(inventory) {
-            return getInventoryArray();
+            return getInventoryArray(null);
         }
     }
 
@@ -104,7 +100,8 @@ public class ProductFileDAO implements ProductDAO{
     @Override
     public Product createProduct(Product product) throws IOException {
         synchronized(inventory) {
-            Product newProduct = new Product(nextId(), product.getName(), product.getSpecies(), product.getColor(), product.getAge(), product.getPrice(), product.getDescription());
+            Product newProduct = new Product(nextId(), product.getName(), product.getSpecies(), product.getColor(),
+                    product.getAge(), product.getPrice(), product.getDescription());
             inventory.put(newProduct.getId(), newProduct);
             save();
             return newProduct;

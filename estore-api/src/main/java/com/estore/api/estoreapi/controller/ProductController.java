@@ -32,17 +32,16 @@ public class ProductController {
     @PostMapping("")
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         LOG.info("POST /products " + product);
-
-        if (product != null) {
-            try {
-                Product newProduct = productDAO.createProduct(product);
+        try {
+            Product newProduct = productDAO.createProduct(product);
+            if(newProduct != null)
                 return new ResponseEntity<Product>(newProduct, HttpStatus.CREATED);
-            } catch (IOException e) {
-                LOG.log(Level.SEVERE, e.getLocalizedMessage());
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        } else {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            else
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

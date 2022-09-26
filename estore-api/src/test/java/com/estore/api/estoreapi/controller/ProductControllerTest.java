@@ -133,21 +133,20 @@ public class ProductControllerTest {
     @Test
     public void testGetInventory() throws IOException { // createHero may throw IOException
         // Setup
-        Product product1 = new Product(1, "mitch", "cat", "red", 45, 234, "issa cat");
-        Product product2 = new Product(2, "brad", "cat", "blone", 20, 300, "issa cat");
-        Product product3 = new Product(3, "chad", "cat", "brunette", 10, 400, "issa cat");
-        int length = 3;
+        Product[] inv = new Product[3];
+        inv[0] = new Product(1, "mitch", "cat", "red", 45, 234, "issa cat");
+        inv[1] = new Product(2, "brad", "cat", "blone", 20, 300, "issa cat");
+        inv[2] = new Product(3, "chad", "cat", "brunette", 10, 400, "issa cat");
+
+        // When getInventory is called return the heroes created above
+        when(productMockDAO.getInventory()).thenReturn(inv);
 
         // Invoke
-        pc.createProduct(product1);
-        pc.createProduct(product2);
-        pc.createProduct(product3);
-
-        Product[] inventory = pc.getInventory().getBody();
         ResponseEntity<Product[]> response = pc.getInventory();
+
         // Analyze
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(length, inventory);
+        assertEquals(inv, response.getBody());
     }
 
 }

@@ -36,12 +36,21 @@ public class ProductFileDAO implements ProductDAO{
 
     private Product[] getInventoryArray(String containsText){
         ArrayList<Product> inventoryList = new ArrayList<>();
-
         for(Product product : inventory.values()) {
-            if (containsText == null || product.getName().contains(containsText)) {
+            // gets all the fields but price and puts them into a string called fields
+            // that can be checked for the search text all at once
+            String[] fieldsArray = {
+                product.getName().toLowerCase(),
+                product.getSpecies().toLowerCase(),
+                product.getColor().toLowerCase(),
+                String.valueOf(product.getAge()),
+                product.getDescription().toLowerCase()
+            };
+            String fields = String.join(" ", fieldsArray);
+            // checks the fields of the product for the search text
+            if (containsText == null || fields.contains(containsText.toLowerCase())) {
                 inventoryList.add(product);
             }
-
         }
         Product[] inventoryArray = new Product[inventoryList.size()];
         inventoryList.toArray(inventoryArray);

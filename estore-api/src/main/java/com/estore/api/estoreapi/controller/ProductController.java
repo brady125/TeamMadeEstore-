@@ -96,4 +96,27 @@ public class ProductController {
 
     }
 
+    /**
+     * Responds to the GET request for all {@linkplain Product products} whose name contains
+     * the text in name
+     * 
+     * @param name The name parameter which contains the text used to find the {@link Product products}
+     * 
+     * @return ResponseEntity with array of {@link Product products} objects (may be empty) and
+     * HTTP status of OK<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @GetMapping("/")
+    public ResponseEntity<Product[]> searchProducts(@RequestParam String name) {
+        LOG.info("GET /products/?name="+name);
+        try {
+            Product[] products = productDAO.findProducts(name);
+            return new ResponseEntity<Product[]>(products, HttpStatus.OK);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

@@ -23,7 +23,7 @@ public class ProductControllerTest {
     private ProductDAO productMockDAO;
 
     @BeforeEach
-    public void setupHeroController() {
+    public void setupProductController() {
         productMockDAO = mock(ProductDAO.class);
         pc = new ProductController(productMockDAO);
     }
@@ -35,7 +35,7 @@ public class ProductControllerTest {
     /* ********************* GET PRODUCT ************************** */
 
     @Test
-    public void testGetProduct() throws IOException {  // getHero may throw IOException
+    public void testGetProduct() throws IOException {  // getProduct may throw IOException
         // Setup
         Product product = new Product(5,"snek", "snake", "orange", 69, 55,
                 "issa snake");
@@ -51,10 +51,10 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void testGetProductNotFound() throws Exception { // createHero may throw IOException
+    public void testGetProductNotFound() throws Exception { // createProduct may throw IOException
         // Setup
         int productId = 5;
-        // When the same id is passed in, our mock Hero DAO will return null, simulating
+        // When the same id is passed in, our mock Product DAO will return null, simulating
         // no Product found
         when(productMockDAO.getProduct(productId)).thenReturn(null);
 
@@ -66,10 +66,10 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void testGetProductHandleException() throws Exception { // createHero may throw IOException
+    public void testGetProductHandleException() throws Exception { // createProduct may throw IOException
         // Setup
         int productId = 5;
-        // When getProduct is called on the Mock Hero DAO, throw an IOException
+        // When getProduct is called on the Mock Product DAO, throw an IOException
         doThrow(new IOException()).when(productMockDAO).getProduct(productId);
 
         // Invoke
@@ -83,7 +83,7 @@ public class ProductControllerTest {
     /* ********************* CREATE PRODUCT ************************** */
 
     @Test
-    public void testCreateProduct() throws IOException {  // createHero may throw IOException
+    public void testCreateProduct() throws IOException {  // createProduct may throw IOException
         // Setup
         Product product = new Product(5,"birb", "bird", "blue", 70, 55,
                 "issa bird");
@@ -100,7 +100,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void testCreateProductFailed() throws IOException {  // createHero may throw IOException
+    public void testCreateProductFailed() throws IOException {  // createProduct may throw IOException
         // Setup
         Product product = new Product(5,"snoop", "dog", "maroon", 80, 23,
                 "issa snoop dog");
@@ -116,15 +116,68 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void testCreateProductHandleException() throws IOException {  // createHero may throw IOException
+    public void testCreateProductHandleException() throws IOException {  // createProduct may throw IOException
         // Setup
         Product product = new Product(5,"mitch", "cat", "red", 45, 234,"issa cat");
 
-        // When createProduct is called on the Mock Hero DAO, throw an IOException
+        // When createProduct is called on the Mock Product DAO, throw an IOException
         doThrow(new IOException()).when(productMockDAO).createProduct(product);
 
         // Invoke
         ResponseEntity<Product> response = pc.createProduct(product);
+
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+    }
+
+
+    /* ********************* SEARCH PRODUCTS ************************** */
+
+    @Test
+    public void testSearchProducts() throws IOException {
+        // Setup
+        String searchString = "ly";
+        Product[] products = new Product[2];
+        products[0] = new Product(0, "Orly", "cat", "orange", 5, 100, "");
+        products[1] = new Product(1, "Carly", "fish", "orange", 1, 10, "");
+        // When findProducts is called with the search string, return the two
+        /// products above
+        when(productMockDAO.findProducts(searchString)).thenReturn(products);
+
+        // Invoke
+        ResponseEntity<Product[]> response = pc.searchProducts(searchString);
+
+        // Analyze
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(products,response.getBody());
+    }
+
+    @Test
+    public void testSearchProductsNoProducts() throws IOException {
+        // Setup
+        String searchString = "ly";
+        Product[] products = new Product[2];
+        // When findProducts is called with the search string, return the two
+        /// products above
+        when(productMockDAO.findProducts(searchString)).thenReturn(products);
+
+        // Invoke
+        ResponseEntity<Product[]> response = pc.searchProducts(searchString);
+
+        // Analyze
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(products,response.getBody());
+    }
+
+    @Test
+    public void testSearchProductsHandleException() throws IOException { // findProducts may throw IOException
+        // Setup
+        String searchString = "an";
+        // When findProducts is called on the Mock Product DAO, throw an IOException
+        doThrow(new IOException()).when(productMockDAO).findProducts(searchString);
+
+        // Invoke
+        ResponseEntity<Product[]> response = pc.searchProducts(searchString);
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());

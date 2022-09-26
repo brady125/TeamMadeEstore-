@@ -150,4 +150,46 @@ public class ProductControllerTest {
         assertEquals(length, inventory);
     }
 
+    @Test
+    public void testDeleteProduct() throws IOException {
+        // Setup
+        int productId = 2;
+        when(productMockDAO.deleteProduct(productId)).thenReturn(false);
+
+        // Invoke
+        ResponseEntity<Product> response = pc.deleteProduct(productId);
+
+        // Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void testDeleteProductNotFound() throws IOException {
+        // Setup
+
+        int productId = 2;
+        when(productMockDAO.deleteProduct(productId)).thenReturn(false);
+
+        // Invoke
+        ResponseEntity<Product> response = pc.deleteProduct(productId);
+
+        // Analyze
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void testDeleteProductHandleException() throws IOException {
+
+        // Setup
+        int productId = 2;
+        doThrow(new IOException()).when(productMockDAO).deleteProduct(productId);
+
+        // Invoke
+        ResponseEntity<Product> response = pc.deleteProduct(productId);
+
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+
+    }
+
 }

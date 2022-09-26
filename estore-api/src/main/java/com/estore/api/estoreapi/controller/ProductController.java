@@ -76,4 +76,24 @@ public class ProductController {
         }
     }
 
+    @DeleteMapping("")
+    public ResponseEntity<Product> deleteProduct(@PathVariable int id){
+
+        LOG.info("DELETE /products/" + id);
+
+        try{
+            boolean productDeleted = productDAO.deleteProduct(id);
+            if (productDeleted){
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e){
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
 }

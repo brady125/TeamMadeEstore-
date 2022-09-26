@@ -49,6 +49,7 @@ public class ProductFileDAO implements ProductDAO{
         }
         Product[] inventoryArray = new Product[inventoryList.size()];
         inventoryList.toArray(inventoryArray);
+        System.out.println(inventoryList.size() + " ||| " + inventoryArray + " ||| " + inventoryList);
         return inventoryArray;
     }
 
@@ -85,7 +86,7 @@ public class ProductFileDAO implements ProductDAO{
     @Override
     public Product[] findProducts(String containsText) {
         synchronized(inventory) {
-            return getInventoryArray();
+            return getInventoryArray(containsText);
         }
     }
 

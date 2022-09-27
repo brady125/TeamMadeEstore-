@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.TreeMap;
  * Implements the functionality for JSON file-based persistance for Products
  * @author
  */
+@Component
 public class ProductFileDAO implements ProductDAO{
     private static final Logger LOG = Logger.getLogger(ProductFileDAO.class.getName());
     Map<Integer, Product> inventory;

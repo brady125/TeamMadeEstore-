@@ -6,7 +6,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
-import java.util.List;
 
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.persistance.ProductDAO;

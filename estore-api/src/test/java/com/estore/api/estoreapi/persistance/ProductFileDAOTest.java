@@ -42,6 +42,16 @@ public class ProductFileDAOTest {
     }
 
     @Test
+    public void testGetInventory() {
+        Product[] inventory = productFileDAO.getInventory();
+
+        assertEquals(inventory.length, testProducts.length);
+        for (int i=0; i<testProducts.length; i++){
+            assertEquals(inventory[i], testProducts[i]);
+        }
+    }
+
+    @Test
     public void testFindProductsName() {
         // Invoke
         Product[] products = productFileDAO.findProducts("or");

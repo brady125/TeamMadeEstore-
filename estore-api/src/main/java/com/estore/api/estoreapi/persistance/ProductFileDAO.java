@@ -21,19 +21,35 @@ public class ProductFileDAO implements ProductDAO{
     private static int nextId;
     private String filename;
 
-    
+    /*
+     * 
+     */
     public ProductFileDAO(@Value("${inventory.file}") String filename, ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
         load();
     }
     
+    /**
+     * Generates the next id for new products
+     *
+     * @return next id
+     */
     private synchronized static int nextId() {
         int id = nextId;
         nextId++;
         return id;
     }
 
+    /**
+     * Generates an array of {@link Product products} from the inventory tree map.
+     * Only includes products with names containing the given string. If containsText is
+     * left empty, the function will generate an array with every hero from the inventory map
+     * 
+     * @param containsText
+     * 
+     * @return an array of {@link Product products} with names containing the given string
+     */
     private Product[] getInventoryArray(String containsText){
         ArrayList<Product> inventoryList = new ArrayList<>();
         for(Product product : inventory.values()) {
@@ -54,10 +70,15 @@ public class ProductFileDAO implements ProductDAO{
         }
         Product[] inventoryArray = new Product[inventoryList.size()];
         inventoryList.toArray(inventoryArray);
-        System.out.println(inventoryList.size() + " ||| " + inventoryArray + " ||| " + inventoryList);
         return inventoryArray;
     }
 
+    /**
+     * Saves all products in the inventory map to a JSON file at the destination set in filename
+     * 
+     * @return boolean
+     * @throws IOException
+     */
     private boolean save() throws IOException {
         Product[] inventoryArray = getInventoryArray(null);
 
@@ -65,6 +86,12 @@ public class ProductFileDAO implements ProductDAO{
         return true;
     }
     
+    /**
+     * Loads all products from a JSON file into the inventory map from the destination set in filename
+     * 
+     * @return boolean
+     * @throws IOException
+     */
     private boolean load() throws IOException{
         inventory = new TreeMap<>();
         nextId = 0;
@@ -81,6 +108,11 @@ public class ProductFileDAO implements ProductDAO{
         return true;
     }
 
+    /**
+     * Constructs an array of every {@link Product product} stored in the inventory map
+     * 
+     * @return an array of every {@link Product product} stored in the inventory map
+     */
     @Override
     public Product[] getInventory() {
         synchronized(inventory){
@@ -88,6 +120,13 @@ public class ProductFileDAO implements ProductDAO{
         }
     }
 
+    /**
+     * Gets an array of {@link Product products} from the inventory tree map.
+     * Only includes products with names containing the given string. If containsText is
+     * left empty, the function will generate an array with every hero from the inventory map
+     * 
+     * @return An array of {@link Product products}
+     */
     @Override
     public Product[] findProducts(String containsText) {
         synchronized(inventory) {
@@ -95,6 +134,10 @@ public class ProductFileDAO implements ProductDAO{
         }
     }
 
+    /**
+     * Gets a {@link Product product} from the inventory map using the {@link Product products} unique id
+     * @return {@link Product product}
+     */
     @Override
     public Product getProduct(int id){
         synchronized(inventory){
@@ -102,6 +145,12 @@ public class ProductFileDAO implements ProductDAO{
         }
     }
 
+    /**
+     * Creates a new {@link Product product} object, stores it in the inventory map, then saves the inventory map to file
+     * 
+     * @param product
+     * @return the sucessfully created {@link Product product}
+     */
     @Override
     public Product createProduct(Product product) throws IOException {
         synchronized(inventory) {
@@ -113,6 +162,13 @@ public class ProductFileDAO implements ProductDAO{
         }
     }
 
+    /**
+     * Takes a new {@link Product product} object with a pre-existing id, replaces the original object in the inventory map, 
+     * then saves the inventory map to file.
+     * 
+     * @param product
+     * @return the sucessfully created {@link Product product}
+     */
     @Override
     public Product updateProduct(Product product) throws IOException {
         synchronized(inventory) {
@@ -125,6 +181,13 @@ public class ProductFileDAO implements ProductDAO{
         }
     }
 
+    /**
+     * Finds a product in the inventory map and removes it from the map if found. Then saves the map to file.
+     * Returns true on a succesful deletion
+     * 
+     * @param id
+     * @return boolean
+     */
     @Override
     public Boolean deleteProduct(int id) throws IOException {
         synchronized(inventory) {

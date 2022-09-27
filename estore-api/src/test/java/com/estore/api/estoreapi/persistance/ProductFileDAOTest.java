@@ -1,8 +1,14 @@
 package com.estore.api.estoreapi.persistance;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doThrow;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +45,16 @@ public class ProductFileDAOTest {
             .readValue(new File("doesnt_matter.txt"),Product[].class))
                 .thenReturn(testProducts);
         productFileDAO = new ProductFileDAO("doesnt_matter.txt",mockObjectMapper);
+    }
+
+    @Test
+    public void testGetInventory() {
+        Product[] inventory = productFileDAO.getInventory();
+
+        assertEquals(inventory.length, testProducts.length);
+        for (int i=0; i<testProducts.length; i++){
+            assertEquals(inventory[i], testProducts[i]);
+        }
     }
 
     @Test
@@ -91,5 +107,101 @@ public class ProductFileDAOTest {
         assertEquals(products[2],testProducts[2]);
     }
 
+<<<<<<< HEAD
     
+=======
+    @Test
+    public void testGetProduct() {
+        //Invoke
+        Product product = productFileDAO.getProduct(1);
+        //Analyze
+        assertEquals(testProducts[1], product);
+    }
+
+    @Test
+    public void testDeleteProduct() {
+        //Invoke
+        boolean result = assertDoesNotThrow(() -> productFileDAO.deleteProduct(2),
+                            "Unexpected exception thrown");
+        //Analyze
+        assertEquals(result, true);
+        assertEquals(productFileDAO.inventory.size(), testProducts.length-1);
+    }
+
+    @Test
+    public void testCreateProduct() {
+        //Invoke
+        Product product = new Product(77, "Humfrey", "Frog", "Green", 999, 0.05f, "Contains enough energy to power a small city for 20 years");
+
+        Product results = assertDoesNotThrow(() -> productFileDAO.createProduct(product),
+                                "Unexpected exception thrown");
+        //Analyze
+        assertNotNull(results);
+        Product actual = productFileDAO.getProduct(product.getId());
+        assertEquals(actual.getId(), product.getId());
+        assertEquals(actual.getName(), product.getName());
+    }
+
+    @Test
+    public void testUpdateProduct() {
+        //Invoke
+        Product product = new Product(1, "Sprinkle", "weasel", "red", 3, 16, "Will steal your keys.");
+
+        Product results = assertDoesNotThrow(() -> productFileDAO.updateProduct(product),
+                                "Unexpected exception thrown");
+        //Analyze
+        assertNotNull(results);
+        Product actual = productFileDAO.getProduct(product.getId());
+        assertEquals(product, actual);
+    }
+
+    @Test
+    public void testSaveException() throws IOException {
+        //Invoke
+        doThrow(new IOException()).when(mockObjectMapper)
+            .writeValue(any(File.class), any(Product[].class));
+        
+        Product product = new Product(99, "Sprinkle", "weasel", "red", 3, 16, "A friendly crimson weasel.");
+
+        //Analyze
+        assertThrows(IOException.class, () -> productFileDAO.createProduct(product),
+            "IOException not thrown");
+    }
+
+    @Test
+    public void testGetProductNotFound() {
+        //Invoke
+        Product product = productFileDAO.getProduct(54);
+        //Analyze
+        assertEquals(product, null);
+    }
+
+    @Test
+    public void testDeleteProductNotFound() {
+        //Invoke
+        boolean result = assertDoesNotThrow(() -> productFileDAO.deleteProduct(33), "Unexpected exception thrown");
+        //Analyze
+        assertEquals(result, false);
+        assertEquals(productFileDAO.inventory.size(), testProducts.length);
+    }
+
+    @Test
+    public void testUpdateProductNotFound() {
+        //Invoke
+        Product product = new Product(44, "Trebol", "Cat", "Tabby", 20, 2.00f, "Likes: politics, Dislikes: The Kardashians"); 
+
+        Product result = assertDoesNotThrow(() -> productFileDAO.updateProduct(product), "Unexpected exception thrown");
+        //Analyze
+        assertNull(result);
+    }
+
+    @Test
+    public void testConstructorException() throws IOException {
+        ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
+        doThrow(new IOException()).when(mockObjectMapper)
+            .readValue(new File("doesnt_matter.txt"), Product[].class);
+
+        assertThrows(IOException.class, () -> new ProductFileDAO("doesnt_matter.txt", mockObjectMapper), "IOException not thrown");
+    }
+>>>>>>> 8ccfdeb3a30043e8818b705d9c550bf6f1e6bed8
 }

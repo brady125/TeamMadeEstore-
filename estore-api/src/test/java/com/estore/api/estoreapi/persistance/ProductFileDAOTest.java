@@ -1,6 +1,8 @@
 package com.estore.api.estoreapi.persistance;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -99,5 +101,50 @@ public class ProductFileDAOTest {
         assertEquals(products[0],testProducts[0]);
         assertEquals(products[1],testProducts[1]);
         assertEquals(products[2],testProducts[2]);
+    }
+
+    @Test
+    public void testGetProduct() {
+        //Invoke
+        Product product = productFileDAO.getProduct(1);
+        //Analyze
+        assertEquals(testProducts[1], product);
+    }
+
+    @Test
+    public void testDeleteProduct() {
+        //Invoke
+        boolean result = assertDoesNotThrow(() -> productFileDAO.deleteProduct(2),
+                            "Unexpected exception thrown");
+        //Analyze
+        assertEquals(result, true);
+        assertEquals(productFileDAO.inventory.size(), testProducts.length-1);
+    }
+
+    @Test
+    public void testCreateProduct() {
+        //Invoke
+        Product product = new Product(99, "Humfrey", "Frog", "Green", 999, 0.05f, "Contains enough energy to power a small city for 20 years");
+
+        Product results = assertDoesNotThrow(() -> productFileDAO.createProduct(product),
+                                "Unexpected exception thrown");
+        //Analyze
+        assertNotNull(results);
+        Product actual = productFileDAO.getProduct(product.getId());
+        assertEquals(actual.getId(), product.getId());
+        assertEquals(actual.getName(), product.getName());
+    }
+
+    @Test
+    public void testUpdateProduct() {
+        //Invoke
+        Product product = new Product(99, "Del Taco", "Dog", "Brown Spotted", 2, 20.00f, "He's the most dog ever!");
+
+        Product results = assertDoesNotThrow(() -> productFileDAO.createProduct(product),
+                                "Unexpected exception thrown");
+        //Analyze
+        assertNotNull(results);
+        Product actual = productFileDAO.getProduct(product.getId());
+        assertEquals(actual, product);
     }
 }

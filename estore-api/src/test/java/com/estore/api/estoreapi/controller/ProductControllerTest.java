@@ -258,7 +258,6 @@ public class ProductControllerTest {
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-
     }
 
 }

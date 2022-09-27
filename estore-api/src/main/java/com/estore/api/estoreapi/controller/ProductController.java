@@ -19,16 +19,34 @@ import java.util.logging.Logger;
 import com.estore.api.estoreapi.persistance.ProductDAO;
 import com.estore.api.estoreapi.model.Product;
 
+/**
+ * Handles the REST API requests for the Product resource
+ * @author
+ */
+
 @RestController
 @RequestMapping("products")
 public class ProductController {
     private static final Logger LOG = Logger.getLogger(ProductController.class.getName());
     private ProductDAO productDAO;
 
+    /**
+     * Creates a REST API controller to respond to requests
+     * 
+     * @param productDAO the {@link ProductDAO Product Data Access Object} to perform CRUD operations
+     */
     public ProductController(ProductDAO productDAO) {
         this.productDAO = productDAO;
     }
 
+    /**
+     * Creates a {@linkplain Product product} with the provided product object
+     * 
+     * @param product that will be created
+     * @return ResponseEntity with created {@linkplain Product product} and HTTP status of CREATED<br>
+     * Returns CONFLICT if {@linkplain Product product} already exists<br>
+     * Returns INTERNAL_SERVER_ERROR otherwise
+     */
     @PostMapping("")
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         LOG.info("POST /products " + product);
@@ -45,6 +63,14 @@ public class ProductController {
         }
     }
 
+    /**
+     * Responds to the GET request for a {@linkplain Product product} with the given id
+     * 
+     * @param id associated with the given {@linkplain Product product}
+     * @return ResponseEntity with {@linkplain Product product} object and HTTP status of OK<br>
+     * Returns NOT_FOUND if {@linkplain Product product} doesn't exists<br>
+     * Returns INTERNAL_SERVER_ERROR otherwise
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProduct(@PathVariable int id) {
         LOG.info("GET /products/" + id);
@@ -63,6 +89,12 @@ public class ProductController {
         }
     }
 
+     /**
+     * Responds to the GET request for all {@linkplain Product product}
+     * 
+     * @return ResponseEntity with an array of {@linkplain Product product} objects (may be empty) and HTTP status of OK<br>
+     * Returns INTERNAL_SERVER_ERROR otherwise
+     */
     @GetMapping("")
     public ResponseEntity<Product[]> getInventory() {
         LOG.info("GET /product/");
@@ -74,26 +106,6 @@ public class ProductController {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-    @DeleteMapping("")
-    public ResponseEntity<Product> deleteProduct(@PathVariable int id){
-
-        LOG.info("DELETE /products/" + id);
-
-        try{
-            boolean productDeleted = productDAO.deleteProduct(id);
-            if (productDeleted){
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
-            else{
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e){
-            LOG.log(Level.SEVERE,e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
     }
 
     /**
@@ -119,6 +131,43 @@ public class ProductController {
         }
     }
 
+    /**
+     * Deletes a {@linkplain Product product} with the given id
+     * 
+     * @param id of the {@linkplain Product product} in question 
+     * @return ResponseEntity HTTP status of OK if deleted<br>
+     * Returns NOT_FOUND if not found<br>
+     * Returns INTERNAL_SERVER_ERROR otherwise
+     */
+    @DeleteMapping("")
+    public ResponseEntity<Product> deleteProduct(@PathVariable int id){
+
+        LOG.info("DELETE /products/" + id);
+
+        try{
+            boolean productDeleted = productDAO.deleteProduct(id);
+            if (productDeleted){
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e){
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+/**
+     * Updates the {@linkplain Product product} with the provided {@linkplain Product product} object, if it exists
+     * 
+     * @param product that will be updated
+     * 
+     * @return ResponseEntity with updated {@linkplain Product product} and HTTP status of OK if updated<br>
+     * Returns NOT_FOUND if not found<br>
+     * Returns INTERNAL_SERVER_ERROR otherwise
+     */
     @PutMapping("")
     public ResponseEntity<Product[]> updateProduct(@RequestParam Product product) {
         LOG.info("PUT /products" + product);

@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-// import com.estore.api.estoreapi.persistence.ProductDAO;
 import com.estore.api.estoreapi.persistance.ProductDAO;
 import com.estore.api.estoreapi.model.Product;
 
+@RestController
+@RequestMapping("products")
 public class ProductController {
     private static final Logger LOG = Logger.getLogger(ProductController.class.getName());
     private ProductDAO productDAO;
@@ -119,4 +119,22 @@ public class ProductController {
         }
     }
 
+    @PutMapping("")
+    public ResponseEntity<Product[]> updateProduct(@RequestParam Product product) {
+        LOG.info("PUT /products" + product);
+        Product returnProduct;
+        try {
+            returnProduct = productDAO.updateProduct(product);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        if(returnProduct != null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

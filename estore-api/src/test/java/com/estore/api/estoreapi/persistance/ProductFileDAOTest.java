@@ -107,6 +107,9 @@ public class ProductFileDAOTest {
         assertEquals(products[2],testProducts[2]);
     }
 
+<<<<<<< HEAD
+    
+=======
     @Test
     public void testGetProduct() {
         //Invoke
@@ -200,4 +203,5 @@ public class ProductFileDAOTest {
 
         assertThrows(IOException.class, () -> new ProductFileDAO("doesnt_matter.txt", mockObjectMapper), "IOException not thrown");
     }
+>>>>>>> 8ccfdeb3a30043e8818b705d9c550bf6f1e6bed8
 }

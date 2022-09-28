@@ -151,7 +151,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void testGetInventoryHandleException() throws IOException { // getHeroes may throw IOException
+    public void testGetInventoryHandleException() throws IOException { // getProducts may throw IOException
         // Setup
         // When getInventory is called on the Mock Product DAO, throw an IOException
         doThrow(new IOException()).when(productMockDAO).getInventory();

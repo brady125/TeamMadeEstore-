@@ -53,7 +53,7 @@ public class ProductFileDAO implements ProductDAO{
     /**
      * Generates an array of {@link Product products} from the inventory tree map.
      * Only includes products with names containing the given string. If containsText is
-     * left empty, the function will generate an array with every hero from the inventory map
+     * left empty, the function will generate an array with every product from the inventory map
      * 
      * @param containsText the text to compare (not case sensitive)
      * 

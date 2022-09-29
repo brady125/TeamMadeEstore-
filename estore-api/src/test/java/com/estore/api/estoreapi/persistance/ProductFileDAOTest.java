@@ -134,8 +134,9 @@ public class ProductFileDAOTest {
                                 "Unexpected exception thrown");
         //Analyze
         assertNotNull(results);
-        Product actual = productFileDAO.getProduct(product.getId());
-        assertEquals(actual.getId(), product.getId());
+            // the id should be changed from 77 to the next sequential id, 3, in actual and resusts by createProduct
+        Product actual = productFileDAO.getProduct(results.getId());
+        assertEquals(actual.getId(), 3);
         assertEquals(actual.getName(), product.getName());
     }
 

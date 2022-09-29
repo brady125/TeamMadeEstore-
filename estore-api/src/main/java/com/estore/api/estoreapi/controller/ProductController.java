@@ -96,10 +96,10 @@ public class ProductController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("/")
-    public ResponseEntity<Product[]> searchProducts(@RequestParam String name) {
-        LOG.info("GET /products/?name="+name);
+    public ResponseEntity<Product[]> searchProducts(@RequestParam String text) {
+        LOG.info("GET /products/?text="+text);
         try {
-            Product[] products = productDAO.findProducts(name);
+            Product[] products = productDAO.findProducts(text);
             return new ResponseEntity<Product[]>(products, HttpStatus.OK);
         }
         catch(IOException e) {
@@ -169,8 +169,8 @@ public class ProductController {
      * Returns INTERNAL_SERVER_ERROR otherwise
      */
     @PutMapping("")
-    public ResponseEntity<Product[]> updateProduct(@RequestParam Product product) {
-        LOG.info("PUT /products" + product);
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
+        LOG.info("PUT /products " + product);
         Product returnProduct;
         try {
             returnProduct = productDAO.updateProduct(product);

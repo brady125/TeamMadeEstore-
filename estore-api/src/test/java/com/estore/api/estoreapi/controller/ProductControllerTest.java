@@ -163,7 +163,6 @@ public class ProductControllerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
 
-
     /* ********************* SEARCH PRODUCTS ************************** */
 
     @Test
@@ -216,7 +215,6 @@ public class ProductControllerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
 
-
     /* ********************* DELETE PRODUCT ************************** */
 
     @Test
@@ -258,6 +256,57 @@ public class ProductControllerTest {
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    /* ********************* UPDATE PRODUCT ************************** */
+
+    @Test
+    public void testUpdateProduct() throws IOException { // updateProduct may throw IOException
+        // Setup
+        Product product = new Product(5, "snek", "snake", "orange", 69, 55,
+                "issa snake");
+        // when updateProduct is called, return true simulating successful
+        // update and save
+        when(productMockDAO.updateProduct(product)).thenReturn(product);
+
+        // Invoke
+        product.setName("Molly");
+        ResponseEntity<Product> response = pc.updateProduct(product);
+
+        // Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(product, response.getBody());
+    }
+
+    @Test
+    public void testUpdateProductFailed() throws IOException { // updateProduct may throw IOException
+        // Setup
+        Product hero = new Product(0, "noname", "dog", "blue", 5, 100,
+                "it got no name");
+        // when updateProduct is called, return true simulating successful
+        // update and save
+        when(productMockDAO.updateProduct(hero)).thenReturn(null);
+
+        // Invoke
+        ResponseEntity<Product> response = pc.updateProduct(hero);
+
+        // Analyze
+        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
+    }
+
+    @Test
+    public void testUpdateProductHandleException() throws IOException { // updateHero may throw IOException
+        // Setup
+        Product product = new Product(3, "noname", "dog", "blue", 5, 100,
+                "it got no name");
+        // When updateHero is called on the Mock Hero DAO, throw an IOException
+        doThrow(new IOException()).when(productMockDAO).updateProduct(product);
+
+        // Invoke
+        ResponseEntity<Product> response = pc.updateProduct(product);
+
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
 
 }

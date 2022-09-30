@@ -21,7 +21,7 @@ import com.estore.api.estoreapi.model.Product;
 
 /**
  * Handles the REST API requests for the Product resource
- * @author
+ * @author Erica Libby, Logan Homes, Peyton Wagner, Brady Morin, Aashwin Katiyar
  */
 
 @RestController
@@ -89,9 +89,9 @@ public class ProductController {
      * Responds to the GET request for all {@linkplain Product products} whose name contains
      * the text in name
      * 
-     * @param name The name parameter which contains the text used to find the {@link Product products}
+     * @param text The parameter which contains the text used to find the {@link Product products}
      * 
-     * @return ResponseEntity with array of {@link Product products} objects (may be empty) and
+     * @return ResponseEntity with array of {@link Product products} objects (maybe empty) and
      * HTTP status of OK<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
@@ -108,29 +108,29 @@ public class ProductController {
         }
     }
     
-        /**
-         * Creates a {@linkplain Product product} with the provided product object
-         * 
-         * @param product that will be created
-         * @return ResponseEntity with created {@linkplain Product product} and HTTP status of CREATED<br>
-         * Returns CONFLICT if {@linkplain Product product} already exists<br>
-         * Returns INTERNAL_SERVER_ERROR otherwise
-         */
-        @PostMapping("")
-        public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-            LOG.info("POST /products " + product);
-            try {
-                Product newProduct = productDAO.createProduct(product);
-                if(newProduct != null)
-                    return new ResponseEntity<Product>(newProduct, HttpStatus.CREATED);
-                else
-                    return new ResponseEntity<>(HttpStatus.CONFLICT);
-    
-            } catch (IOException e) {
-                LOG.log(Level.SEVERE, e.getLocalizedMessage());
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+    /**
+     * Creates a {@linkplain Product product} with the provided product object
+     *
+     * @param product that will be created
+     * @return ResponseEntity with created {@linkplain Product product} and HTTP status of CREATED<br>
+     * Returns CONFLICT if {@linkplain Product product} already exists<br>
+     * Returns INTERNAL_SERVER_ERROR otherwise
+     */
+    @PostMapping("")
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        LOG.info("POST /products " + product);
+        try {
+            Product newProduct = productDAO.createProduct(product);
+            if(newProduct != null)
+                return new ResponseEntity<Product>(newProduct, HttpStatus.CREATED);
+            else
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
     
     /**
      * Deletes a {@linkplain Product product} with the given id
@@ -171,19 +171,17 @@ public class ProductController {
     @PutMapping("")
     public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
         LOG.info("PUT /products " + product);
-        Product returnProduct;
-        try {
-            returnProduct = productDAO.updateProduct(product);
+
+        try{
+            Product uProduct = productDAO.updateProduct(product);
+            if(uProduct != null)
+                return new ResponseEntity<Product>(uProduct, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        if(returnProduct != null){
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

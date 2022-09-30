@@ -1,5 +1,6 @@
 package com.estore.api.estoreapi.persistance;
 
+import com.estore.api.estoreapi.controller.ProductController;
 import com.estore.api.estoreapi.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -167,11 +168,11 @@ public class ProductFileDAO implements ProductDAO{
     @Override
     public Product updateProduct(Product product) throws IOException {
         synchronized(inventory) {
-            if(inventory.containsKey(product.getId()) == false)
+            if(!inventory.containsKey(product.getId()))
                 return null;
             
             inventory.put(product.getId(), product);
-            save();
+            save(); // may throw an IOException
             return product;
         }
     }

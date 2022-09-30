@@ -295,11 +295,11 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void testUpdateProductHandleException() throws IOException { // updateHero may throw IOException
+    public void testUpdateProductHandleException() throws IOException { // updateProduct may throw IOException
         // Setup
         Product product = new Product(3, "noname", "dog", "blue", 5, 100,
                 "it got no name");
-        // When updateHero is called on the Mock Hero DAO, throw an IOException
+        // When updateProduct is called on the productMockDAO, throw an IOException
         doThrow(new IOException()).when(productMockDAO).updateProduct(product);
 
         // Invoke

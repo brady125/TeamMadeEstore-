@@ -1,11 +1,12 @@
 <h1>E-Store Name</h1>
 <h2>Sign Up</h2>
 <p>Already have an account?  <a>Login Here</a></p>
+<p id="createAccountFailedMessage" [style.display]="display">{{errorMessage}}</p>
 <div id="inputs">
     <p class="textFeildLabel">Username:</p>
     <input id="username">
     <p class="textFeildLabel">Password:</p>
     <input id="password">
 </div>
-<button>Create Account</button>
+<button (click)="createAccount()">Create Account</button>
 

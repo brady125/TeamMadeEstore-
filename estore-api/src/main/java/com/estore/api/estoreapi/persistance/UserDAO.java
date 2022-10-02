@@ -1,4 +1,4 @@
-package com.estore.api.estoreapi;
+package com.estore.api.estoreapi.persistance;
 
 import java.io.IOException;
 import com.estore.api.estoreapi.model.User;

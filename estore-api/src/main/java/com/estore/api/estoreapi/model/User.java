@@ -17,10 +17,11 @@ public class User {
     private ShoppingCart shoppingCart;
 
     public User(@JsonProperty("username") String username, @JsonProperty("password") String password,
-            @JsonProperty("isAdmin") boolean isAdmin) {
+            @JsonProperty("isAdmin") boolean isAdmin, @JsonProperty("shoppingcart") ShoppingCart shoppingCart) {
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
+        this.shoppingCart = shoppingCart;
     }
 
     public String getUsername() {

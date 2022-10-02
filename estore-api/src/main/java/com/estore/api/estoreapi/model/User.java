@@ -13,7 +13,7 @@ public class User {
     private String password;
     @JsonProperty("isAdmin")
     private boolean isAdmin;
-    @JsonProperty("shoppingCart")
+    @JsonProperty("shoppingcart")
     private ShoppingCart shoppingCart;
 
     public User(@JsonProperty("username") String username, @JsonProperty("password") String password,

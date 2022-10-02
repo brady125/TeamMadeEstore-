@@ -13,11 +13,13 @@ public interface UserDAO {
 
     User[] findUsers(String containsText) throws IOException; // idk if we need this
 
-    User getHero(int id) throws IOException;
+    User getUser(String username) throws IOException;
 
-    User createHero(User user) throws IOException;
+    User createUser(User user) throws IOException;
 
-    User updateHero(User user) throws IOException;
+    User updateUser(User user) throws IOException;
 
-    boolean deleteUser(int id) throws IOException;
+    boolean deleteUser(String username) throws IOException;
+
+    boolean userExists(User user) throws IOException;
 }

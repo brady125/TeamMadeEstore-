@@ -13,7 +13,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  createAccount(username: String, password: String): boolean {
+  addUser(username: String, password: String): boolean {
     return false;
   }
 

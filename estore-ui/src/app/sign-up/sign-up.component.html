@@ -3,9 +3,9 @@
 <p>Already have an account?  <a>Login Here</a></p>
 <p id="createAccountFailedMessage" [style.display]="display">{{errorMessage}}</p>
 <div id="inputs">
-    <p class="textFeildLabel">Username:</p>
+    <p class="inputLabel">Username:</p>
     <input id="username" #username>
-    <p class="textFeildLabel">Password:</p>
+    <p class="inputLabel">Password:</p>
     <input id="password" type="password" #password>
 </div>
 <button (click)="createAccount(username.value, password.value)">Create Account</button>

@@ -23,11 +23,14 @@ export class SignUpComponent implements OnInit {
    * @returns true if the account was created and false if it was not
    */
   createAccount(username: String, password: String): boolean {
+    // trim whitespace
+    username = username.trim();
+    password = password.trim();
     // if both fields are filled in and password meets requirements, 
     if (username != "" && password.length >= 8) {
       // then try to create the new account
-      if (this.userService.createAccount(username, password)) {
-        // log in user
+      if (this.userService.addUser(username, password)) {
+        this.login()
         return true;
       // if creating the account fails (username not unique), set appropiate error message
       } else {
@@ -44,10 +47,10 @@ export class SignUpComponent implements OnInit {
   }
 
   /**
-   * Logs the user into their account and brings them to their home screen (buyer or admin)- might need parameter
+   * Logs the user into their account and brings them to their home screen (buyer or admin)- might need parameter(s)
    */
   login(): void {
-    
+    // TODO
   }
 
 }

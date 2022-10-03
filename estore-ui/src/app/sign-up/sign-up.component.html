@@ -4,9 +4,9 @@
 <p id="createAccountFailedMessage" [style.display]="display">{{errorMessage}}</p>
 <div id="inputs">
     <p class="textFeildLabel">Username:</p>
-    <input id="username">
+    <input id="username" #username>
     <p class="textFeildLabel">Password:</p>
-    <input id="password">
+    <input id="password" type="password" #password>
 </div>
-<button (click)="createAccount()">Create Account</button>
+<button (click)="createAccount(username.value, password.value)">Create Account</button>
 

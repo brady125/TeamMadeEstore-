@@ -67,6 +67,7 @@ public class ProductFileDAOTest {
         assertEquals(products[0],testProducts[0]);
         assertEquals(products[1],testProducts[2]);
     }
+
     @Test
     public void testFindProductsDescription() {
         // Invoke
@@ -77,6 +78,7 @@ public class ProductFileDAOTest {
         assertEquals(products[0],testProducts[1]);
         assertEquals(products[1],testProducts[2]);
     }
+
     @Test
     public void testFindProductsAge() {
         // Invoke
@@ -86,6 +88,7 @@ public class ProductFileDAOTest {
         assertEquals(products.length,1);
         assertEquals(products[0],testProducts[2]);
     }
+
     @Test
     public void testFindProductsFieldSeperation() {
         /* Makes sure that the search isn't combining fields */
@@ -95,6 +98,7 @@ public class ProductFileDAOTest {
         // Analyze
         assertEquals(products.length,0);
     }
+
     @Test
     public void testFindProductsNull() {
         // Invoke
@@ -141,19 +145,6 @@ public class ProductFileDAOTest {
     }
 
     @Test
-    public void testUpdateProduct() {
-        //Invoke
-        Product product = new Product(1, "Sprinkle", "weasel", "red", 3, 16, "Will steal your keys.");
-
-        Product results = assertDoesNotThrow(() -> productFileDAO.updateProduct(product),
-                                "Unexpected exception thrown");
-        //Analyze
-        assertNotNull(results);
-        Product actual = productFileDAO.getProduct(product.getId());
-        assertEquals(product, actual);
-    }
-
-    @Test
     public void testSaveException() throws IOException {
         //Invoke
         doThrow(new IOException()).when(mockObjectMapper)
@@ -181,6 +172,19 @@ public class ProductFileDAOTest {
         //Analyze
         assertEquals(result, false);
         assertEquals(productFileDAO.inventory.size(), testProducts.length);
+    }
+
+    @Test
+    public void testUpdateProduct() {
+        //Invoke
+        Product product = new Product(1, "Sprinkle", "weasel", "red", 3, 16, "Will steal your keys.");
+
+        Product results = assertDoesNotThrow(() -> productFileDAO.updateProduct(product),
+                "Unexpected exception thrown");
+        //Analyze
+        assertNotNull(results);
+        Product actual = productFileDAO.getProduct(product.getId());
+        assertEquals(product, actual);
     }
 
     @Test

@@ -26,7 +26,9 @@ public class Product {
      * @param price as a float value
      * @param description of the animal
      */
-    public Product(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("species") String species, @JsonProperty("color") String color, @JsonProperty("age") int age, @JsonProperty("price") float price, @JsonProperty("description") String description){
+    public Product(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("species")
+    String species, @JsonProperty("color") String color, @JsonProperty("age") int age, @JsonProperty("price")
+    float price, @JsonProperty("description") String description){
         this.id = id;
         this.name = name;
         this.species = species;
@@ -77,4 +79,41 @@ public class Product {
      * @return description as a string
      */
     public String getDescription() {return description;}
+
+    /**
+     * Sets a new name specified in the parameter string
+     * @param newName The new name to change to
+     */
+    public void setName(String newName){ this.name = newName; }
+
+    /**
+     * Sets a new species specified in the parameter string
+     * @param newSpec The new species to change to
+     */
+    public void setSpecies(String newSpec){ this.species = newSpec; }
+
+    /**
+     * Sets a new color specified in the parameter string
+     * @param newColor The new color to change to
+     */
+    public void setColor(String newColor){ this.color = newColor; }
+
+    /**
+     * Sets a new age specified in the parameter string
+     * @param newAge The new age to change to
+     */
+    public void setAge(int newAge){ this.age = newAge; }
+
+    /**
+     * Sets a new price specified in the parameter string
+     * @param newPrice The new price to change to
+     */
+    public void setPrice(float newPrice){ this.price = newPrice; }
+
+    /**
+     * Sets a new description specified in the parameter string
+     * @param newDesc The new description to change to
+     */
+    public void setDescription(String newDesc){ this.description = newDesc; }
+
 }

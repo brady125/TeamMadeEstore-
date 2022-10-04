@@ -1,12 +1,16 @@
 <h1>E-Store Name</h1>
-<h2>Sign Up</h2>
-<p>Already have an account?  <a>Login Here</a></p>
-<p id="createAccountFailedMessage" [style.display]="display">{{errorMessage}}</p>
-<div id="inputs">
-    <p class="inputLabel">Username:</p>
-    <input id="username" #username>
-    <p class="inputLabel">Password:</p>
-    <input id="password" type="password" #password>
+<div class = "sign-in-body">
+    <div class = "title">
+        <h2>Sign Up</h2>
+        <p>Already have an account?  <a>Login Here</a></p>
+    </div>
+    <p id="createAccountFailedMessage" [style.display]="display">{{errorMessage}}</p>
+    <div id="inputs">
+        <p class="inputLabel">Username:</p>
+        <input id="username" #username>
+        <p class="inputLabel">Password:</p>
+        <input id="password" type="password" #password>
+    </div>
+    <button (click)="createAccount(username.value, password.value)">Create Account</button>
 </div>
-<button (click)="createAccount(username.value, password.value)">Create Account</button>
 

@@ -15,6 +15,10 @@ public class ShoppingCart {
         this.products = products;
     }
 
+    public ShoppingCart() {
+        this.products = new Product[0];
+    }
+
     public Product[] getProducts() {
         return products;
     }

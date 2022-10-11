@@ -24,6 +24,14 @@ public class User {
         this.shoppingCart = shoppingCart;
     }
 
+    public User(@JsonProperty("username") String username, @JsonProperty("password") String password,
+            @JsonProperty("isAdmin") boolean isAdmin) {
+        this.username = username;
+        this.password = password;
+        this.isAdmin = isAdmin;
+        this.shoppingCart = new ShoppingCart();
+    }
+
     public String getUsername() {
         return username;
     }

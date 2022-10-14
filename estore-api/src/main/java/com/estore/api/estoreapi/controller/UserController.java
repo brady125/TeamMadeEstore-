@@ -58,10 +58,10 @@ public class UserController {
     }
 
     @GetMapping("")
-    public ResponseEntity<User[]> getUsers() {
+    public ResponseEntity<User[]> getUsers(String containsText) {
         LOG.info("GET /users/");
         try {
-            User[] users = userDAO.getUsers();
+            User[] users = userDAO.getUsers(containsText);
             return new ResponseEntity<>(users, HttpStatus.OK);
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
@@ -73,7 +73,7 @@ public class UserController {
     public ResponseEntity<User[]> searchUsers(@RequestParam String username) {
         LOG.info("GET /users/?username=" + username);
         try {
-            User[] users = userDAO.findUsers(username);
+            User[] users = userDAO.getUsers(username);
             return new ResponseEntity<User[]>(users, HttpStatus.OK);
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
@@ -85,16 +85,15 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         LOG.info("POST /users/" + user);
         try {
-            if (!userDAO.userExists(user)) {
-                user = userDAO.createUser(user);
-                return new ResponseEntity<User>(user, HttpStatus.CREATED);
-            } else {
-                user = null;
-                return new ResponseEntity<User>(user, HttpStatus.CONFLICT);
-            }
+            User newUser = userDAO.createUser(user);
+            if(newUser != null && !userDAO.userExists(user))
+                return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+            else
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
-            return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -117,7 +116,7 @@ public class UserController {
         LOG.info("DELETE /users/" + username);
         try {
             boolean deleted = userDAO.deleteUser(username);
-            if (deleted == true)
+            if (deleted)
                 return new ResponseEntity<>(HttpStatus.OK);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (IOException e) {

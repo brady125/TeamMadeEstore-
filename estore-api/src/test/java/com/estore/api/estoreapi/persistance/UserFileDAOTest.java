@@ -1,10 +1,6 @@
 package com.estore.api.estoreapi.persistance;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
@@ -47,16 +43,16 @@ public class UserFileDAOTest {
 
     @Test
     public void testGetUsers() {
-        User[] users = userFileDAO.getUsers();
+        User[] users = userFileDAO.getUsers(null);
 
         assertEquals(users.length, testUsers.length);
-        //all users seem to be there just out of order, so comparing each user is way more of a pain than in productfiledao
+        //all users seem to be there just out of order, so comparing each user is way more of a pain than in userfiledao
     }
 
     @Test
     public void testFindUsersName() {
         // Invoke
-        User[] Users = userFileDAO.findUsers("Su");
+        User[] Users = userFileDAO.getUsers("Su");
 
         // Analyze
         assertEquals(Users.length,2);
@@ -78,7 +74,7 @@ public class UserFileDAOTest {
         boolean result = assertDoesNotThrow(() -> userFileDAO.deleteUser("MadDoggy"),
                             "Unexpected exception thrown");
         //Analyze
-        assertEquals(result, true);
+        assertTrue(result);
         assertEquals(userFileDAO.users.size(), testUsers.length-1);
     }
 
@@ -115,7 +111,7 @@ public class UserFileDAOTest {
         //Invoke
         User User = userFileDAO.getUser("M_R_Bones");
         //Analyze
-        assertEquals(User, null);
+        assertNull(User);
     }
 
     @Test
@@ -123,7 +119,7 @@ public class UserFileDAOTest {
         //Invoke
         boolean result = assertDoesNotThrow(() -> userFileDAO.deleteUser("M_R_S_Bones"), "Unexpected exception thrown");
         //Analyze
-        assertEquals(result, false);
+        assertFalse(result);
         assertEquals(userFileDAO.users.size(), testUsers.length);
     }
 

@@ -60,14 +60,7 @@ public class UserFileDAO implements UserDAO {
     }
 
     @Override
-    public User[] getUsers() {
-        synchronized (users) {
-            return getUsersArray();
-        }
-    }
-
-    @Override
-    public User[] findUsers(String containsText) {
+    public User[] getUsers(String containsText) {
         synchronized (users) {
             return getUsersArray(containsText);
         }
@@ -76,11 +69,7 @@ public class UserFileDAO implements UserDAO {
     @Override
     public User getUser(String username) {
         synchronized (users) {
-            if (users.containsKey(username)) {
-                return users.get(username);
-            } else {
-                return null;
-            }
+            return users.getOrDefault(username, null);
         }
     }
 
@@ -98,7 +87,7 @@ public class UserFileDAO implements UserDAO {
     @Override
     public User updateUser(User user) throws IOException {
         synchronized (users) {
-            if (users.containsKey(user.getUsername()) == false) {
+            if (!users.containsKey(user.getUsername())) {
                 return null;
             } else {
                 users.put(user.getUsername(), user);
@@ -127,6 +116,7 @@ public class UserFileDAO implements UserDAO {
         for (User tempUser : usersArray) {
             if (tempUser.equals(user)) {
                 userDoesExist = true;
+                break;
             }
         }
         return userDoesExist;

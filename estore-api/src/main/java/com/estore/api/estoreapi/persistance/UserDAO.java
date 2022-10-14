@@ -10,9 +10,8 @@ import com.estore.api.estoreapi.model.User;
  * @author SWEN Faculty
  */
 public interface UserDAO {
-    User[] getUsers() throws IOException;
 
-    User[] findUsers(String containsText) throws IOException; // idk if we need this
+    User[] getUsers(String containsText) throws IOException;
 
     User getUser(String username) throws IOException;
 

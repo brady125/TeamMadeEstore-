@@ -69,10 +69,11 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object o) {
-        User compare = User.class.cast(o);
-        if (compare.getUsername().equals(username))
-            return true;
+    public boolean equals(Object obj) {
+        if (obj instanceof User) {
+            User compareUser = (User) obj;
+            return compareUser.getUsername().equals(this.username);
+        }
         return false;
     }
 }

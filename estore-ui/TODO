@@ -1,0 +1,7 @@
+Figure out how loggin in / staying logged in works
+  JSON Web Tokens (JWT) stored in HTML5 web storage?
+  https://www.syncfusion.com/blogs/post/best-practices-for-jwt-authentication-in-angular-apps.aspx
+
+Do CSS / Bootstrap
+
+Connect user service to back end    -   waiting for back end to be ready

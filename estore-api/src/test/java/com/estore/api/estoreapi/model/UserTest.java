@@ -22,21 +22,25 @@ public class UserTest {
         products[2] = new Product(2, "George", "monkey", "brown", 5, 60, "A friendly and curious monkey.");
 
         cart = new ShoppingCart(products);
-        user = new User("Book_x_Bro", "BuffBrain", false, cart);
+        user = new User("Book_x_Bro", "BuffBrain");
+        user.setShoppingCart(cart);
     }
 
     @Test
     public void testGetUsername() {
         assertEquals("Book_x_Bro", user.getUsername());
     }
+
     @Test
     public void testGetPassword() {
         assertEquals("BuffBrain", user.getPassword());
     }
+
     @Test
     public void testIsAdmin() {
-        assert(!user.isAdmin());
+        assert (!user.isAdmin());
     }
+
     @Test
     public void testGetCart() {
         assertEquals(cart, user.getCart());

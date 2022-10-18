@@ -23,20 +23,21 @@ public class UserFileDAOTest {
     /**
      * Before each test, we will create and inject a Mock Object Mapper to
      * isolate the tests from the underlying file
+     * 
      * @throws IOException
      */
     @BeforeEach
     public void setupUserFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
         testUsers = new User[3];
-        testUsers[0] = new User("SupJathan32", "wonkywoo23", false);
-        testUsers[1] = new User("MadDoggy", "bon333s", false);
-        testUsers[2] = new User("SuperPro123", "password123", true);
+        testUsers[0] = new User("SupJathan32", "wonkywoo23");
+        testUsers[1] = new User("MadDoggy", "bon333s");
+        testUsers[2] = new User("SuperPro123", "password123");
 
         // When the object mapper is supposed to read from the file
         // the mock object mapper will return the User array above
         when(mockObjectMapper
-            .readValue(new File("dont_matter.txt"),User[].class))
+                .readValue(new File("dont_matter.txt"), User[].class))
                 .thenReturn(testUsers);
         userFileDAO = new UserFileDAO("dont_matter.txt", mockObjectMapper);
     }
@@ -46,7 +47,8 @@ public class UserFileDAOTest {
         User[] users = userFileDAO.getUsers(null);
 
         assertEquals(users.length, testUsers.length);
-        //all users seem to be there just out of order, so comparing each user is way more of a pain than in userfiledao
+        // all users seem to be there just out of order, so comparing each user is way
+        // more of a pain than in userfiledao
     }
 
     @Test
@@ -55,39 +57,40 @@ public class UserFileDAOTest {
         User[] Users = userFileDAO.getUsers("Su");
 
         // Analyze
-        assertEquals(Users.length,2);
-        assertEquals(Users[0],testUsers[0]);
-        assertEquals(Users[1],testUsers[2]);
+        assertEquals(Users.length, 2);
+        assertEquals(Users[0], testUsers[0]);
+        assertEquals(Users[1], testUsers[2]);
     }
 
     @Test
     public void testGetUser() {
-        //Invoke
+        // Invoke
         User User = userFileDAO.getUser("SuperPro123");
-        //Analyze
+        // Analyze
         assertEquals(testUsers[2], User);
     }
 
     @Test
     public void testDeleteUser() {
-        //Invoke
+        // Invoke
         boolean result = assertDoesNotThrow(() -> userFileDAO.deleteUser("MadDoggy"),
-                            "Unexpected exception thrown");
-        //Analyze
+                "Unexpected exception thrown");
+        // Analyze
         assertTrue(result);
-        assertEquals(userFileDAO.users.size(), testUsers.length-1);
+        assertEquals(userFileDAO.users.size(), testUsers.length - 1);
     }
 
     @Test
     public void testCreateUser() {
-        //Invoke
-        User User = new User("Teensy", "V3rySm4ll", false);
+        // Invoke
+        User User = new User("Teensy", "V3rySm4ll");
 
         User results = assertDoesNotThrow(() -> userFileDAO.createUser(User),
-                                "Unexpected exception thrown");
-        //Analyze
+                "Unexpected exception thrown");
+        // Analyze
         assertNotNull(results);
-            // the id should be changed from 77 to the next sequential id, 3, in actual and resusts by createUser
+        // the id should be changed from 77 to the next sequential id, 3, in actual and
+        // resusts by createUser
         User actual = userFileDAO.getUser(results.getUsername());
         assertEquals(actual.getUsername(), "Teensy");
         assertEquals(actual.getPassword(), User.getPassword());
@@ -99,7 +102,7 @@ public class UserFileDAOTest {
         doThrow(new IOException()).when(mockObjectMapper)
             .writeValue(any(File.class), any(User[].class));
         
-        User User = new User("SuperPro123", "password123", false);
+        User User = new User("SuperPro123", "password123");
 
         //Analyze
         assertThrows(IOException.class, () -> userFileDAO.createUser(User),
@@ -108,29 +111,29 @@ public class UserFileDAOTest {
 
     @Test
     public void testGetUserNotFound() {
-        //Invoke
+        // Invoke
         User User = userFileDAO.getUser("M_R_Bones");
-        //Analyze
+        // Analyze
         assertNull(User);
     }
 
     @Test
     public void testDeleteUserNotFound() {
-        //Invoke
+        // Invoke
         boolean result = assertDoesNotThrow(() -> userFileDAO.deleteUser("M_R_S_Bones"), "Unexpected exception thrown");
-        //Analyze
+        // Analyze
         assertFalse(result);
         assertEquals(userFileDAO.users.size(), testUsers.length);
     }
 
     @Test
     public void testUpdateUser() {
-        //Invoke
-        User User = new User("SupJathan32", "wonkywoo23", true);
+        // Invoke
+        User User = new User("SupJathan32", "wonkywoo23");
 
         User results = assertDoesNotThrow(() -> userFileDAO.updateUser(User),
                 "Unexpected exception thrown");
-        //Analyze
+        // Analyze
         assertNotNull(results);
         User actual = userFileDAO.getUser(User.getUsername());
         assertEquals(User, actual);
@@ -138,11 +141,11 @@ public class UserFileDAOTest {
 
     @Test
     public void testUpdateUserNotFound() {
-        //Invoke
-        User User = new User("M_R_Bones", "Sk3llington", true); 
+        // Invoke
+        User User = new User("M_R_Bones", "Sk3llington");
 
         User result = assertDoesNotThrow(() -> userFileDAO.updateUser(User), "Unexpected exception thrown");
-        //Analyze
+        // Analyze
         assertNull(result);
     }
 

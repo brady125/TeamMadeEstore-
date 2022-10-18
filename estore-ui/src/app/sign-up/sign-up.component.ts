@@ -50,7 +50,8 @@ export class SignUpComponent implements OnInit {
    * Logs the user into their account and brings them to their home screen (buyer or admin)- might need parameter(s)
    */
   login(): void {
-    // TODO
+    this.errorMessage = "login() called"
+    this.display = "initial"
   }
 
 }

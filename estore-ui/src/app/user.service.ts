@@ -2,6 +2,7 @@ import { APP_ID, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest, HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
 import { NONE_TYPE } from '@angular/compiler';
+import { User } from './user'
 
 @Injectable({
   providedIn: 'root'

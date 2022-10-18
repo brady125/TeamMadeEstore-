@@ -76,8 +76,7 @@ public class UserFileDAO implements UserDAO {
     @Override
     public User createUser(User user) throws IOException {
         synchronized (users) {
-            User newUser = new User(user.getUsername(), user.getPassword(), user.isAdmin(),
-                    user.getCart());
+            User newUser = new User(user.getUsername(), user.getPassword());
             users.put(newUser.getUsername(), newUser);
             save();
             return newUser;

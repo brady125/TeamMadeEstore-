@@ -16,19 +16,26 @@ public class User {
     @JsonProperty("shoppingcart")
     private ShoppingCart shoppingCart;
 
-    public User(@JsonProperty("username") String username, @JsonProperty("password") String password,
-            @JsonProperty("isAdmin") boolean isAdmin, @JsonProperty("shoppingcart") ShoppingCart shoppingCart) {
-        this.username = username;
-        this.password = password;
-        this.isAdmin = isAdmin;
-        this.shoppingCart = shoppingCart;
-    }
+    // public User(@JsonProperty("username") String username, @JsonProperty("password") String password,
+    //         @JsonProperty("isAdmin") boolean isAdmin, @JsonProperty("shoppingcart") ShoppingCart shoppingCart) {
+    //     this.username = username;
+    //     this.password = password;
+    //     this.isAdmin = isAdmin;
+    //     this.shoppingCart = shoppingCart;
+    // }
 
-    public User(@JsonProperty("username") String username, @JsonProperty("password") String password,
-            @JsonProperty("isAdmin") boolean isAdmin) {
+    // public User(@JsonProperty("username") String username, @JsonProperty("password") String password,
+    //         @JsonProperty("isAdmin") boolean isAdmin) {
+    //     this.username = username;
+    //     this.password = password;
+    //     this.isAdmin = isAdmin;
+    //     this.shoppingCart = new ShoppingCart();
+    // }
+
+    public User(@JsonProperty("username") String username, @JsonProperty("password") String password) {
         this.username = username;
         this.password = password;
-        this.isAdmin = isAdmin;
+        this.isAdmin = false;
         this.shoppingCart = new ShoppingCart();
     }
 

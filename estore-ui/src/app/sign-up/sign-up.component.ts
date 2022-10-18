@@ -9,6 +9,7 @@ import { UserService } from '../user.service';
 export class SignUpComponent implements OnInit {
   errorMessage = "";
   display = "none";
+  user = null;
 
   constructor(private userService: UserService) { }
 
@@ -29,7 +30,8 @@ export class SignUpComponent implements OnInit {
     // if both fields are filled in and password meets requirements, 
     if (username != "" && password.length >= 8) {
       // then try to create the new account
-      if (this.userService.addUser(username, password)) {
+      this.userService.addUser(username, password).subscribe(user => user);
+      if (this.user != null) {
         this.login()
         return true;
       // if creating the account fails (username not unique), set appropiate error message

@@ -81,6 +81,22 @@ public class UserController {
         }
     }
 
+    @PostMapping("/check")
+    public ResponseEntity<User> loginUser(@RequestBody User user) {
+        LOG.info("POST /users/check");
+        try {
+            User match = userDAO.login(user.getUsername(), user.getPassword());
+            if (match != null) {
+                return new ResponseEntity<User>(match, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         LOG.info("POST /users/" + user);

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../user'
 
 @Component({
   selector: 'app-sign-up',
@@ -10,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SignUpComponent implements OnInit {
   errorMessage = "";
   display = "none";
-  user: Object[] = [];
+  user: User = {username: "", password: ""}
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
@@ -31,16 +32,16 @@ export class SignUpComponent implements OnInit {
     // if both fields are filled in and password meets requirements, 
     if (username != "" && password.length >= 8) {
       // then try to create the new account
-      this.userService.addUser(username, password).subscribe(user => {
-        this.user.push(user);
-      });
-      if (this.user != null) {
-        this.login(this.user[0])
-        return true;
-      // if creating the account fails (username not unique), set appropiate error message
-      } else {
-        this.errorMessage = "This username was already taken.";
-      }
+      this.userService.addUser(username, password).subscribe(newUser => this.user = newUser);
+      this.errorMessage = this.user.username;
+      this.display = "initial"
+      // if (this.user.username != "") {
+      //   this.login(this.user)
+      //   return true;
+      // // if creating the account fails (username not unique), set appropiate error message
+      // } else {
+      //   this.errorMessage = "This username was already taken.";
+      // }
     // use else if statements to reveal an errormessage that describes the problem
     } else if (username == "") {
       this.errorMessage = "You must enter a username.";
@@ -54,15 +55,15 @@ export class SignUpComponent implements OnInit {
   /**
    * Logs the user into their account and brings them to their home screen (buyer or admin)
    */
-  login(user: Object): void {
-    // if (user.isAdmin()) {
-    //   this.router.navigate(['admin-homepage'])
-    // } else {
-    //   this.router.navigate(['user-homepage'], { userid: user.getID()})
-    // }
-    // this.router.navigate(['admin-homepage'])
+  login(user: User): void {
     this.errorMessage = "logincalled"
     this.display= "initial"
+    this.router.navigate(['admin-homepage'])
+    // if (user.username == "admin") {
+    //   this.router.navigate(['admin-homepage'])
+    // } else {
+    //   this.router.navigate(['user-homepage'], { username: user.username})
+    // }
   }
 
 }

@@ -120,4 +120,20 @@ public class UserFileDAO implements UserDAO {
         }
         return userDoesExist;
     }
+
+    /*
+     * Checks that the given password is correct for the account with the given username.
+     * If no account exists under that username or the password doesn't match, returns false.
+     * If the password given matches the one stored, returns true.
+     */
+    @Override
+    public User login(String username, String password) throws IOException {
+        User user = this.getUser(username);
+        if (user != null) {
+            if (user.getPassword() == password) {
+                return user;
+            }
+        }
+        return null;
+    }
 }

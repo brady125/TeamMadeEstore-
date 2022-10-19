@@ -3,6 +3,7 @@ import { UserService } from '../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../user'
 import { HttpErrorResponse } from '@angular/common/http';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,7 +13,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class SignUpComponent implements OnInit {
   errorMessage = "";
   display = "none";
-  user: User = {username: "", password: ""}
+  // user: User = {username: "", password: ""}
+  private user = "";
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
@@ -26,23 +28,21 @@ export class SignUpComponent implements OnInit {
    * @param password the password for the new account entered by the user, must be at least 8 characters long
    * @returns true if the account was created and false if it was not
    */
-  createAccount(username: String, password: String): boolean {
+  createAccount(username: String, password: String): void {
     // trim whitespace
     username = username.trim();
     password = password.trim();
     // if both fields are filled in and password meets requirements, 
     if (username != "" && password.length >= 8) {
       // then try to create the new account
-      this.userService.addUser(username, password).subscribe(newUser => this.user = newUser);
-      this.errorMessage = this.user.username;
+      this.userService.addUser({username, password} as User).subscribe(newUser => {
+        this.user = newUser.username;
+        if (this.user == username) {
+          this.login(this.user)
+        }});
+      // if creating the account fails (username not unique), set appropiate error message
+      this.errorMessage = "This username was already taken.";
       this.display = "initial"
-      // if (this.user.username != "") {
-      //   this.login(this.user)
-      //   return true;
-      // // if creating the account fails (username not unique), set appropiate error message
-      // } else {
-      //   this.errorMessage = "This username was already taken.";
-      // }
     // use else if statements to reveal an errormessage that describes the problem
     } else if (username == "") {
       this.errorMessage = "You must enter a username.";
@@ -50,13 +50,12 @@ export class SignUpComponent implements OnInit {
       this.errorMessage = "Your password must be at least 8 characters long."
     }
     this.display = "initial";
-    return false;
   }
 
   /**
    * Logs the user into their account and brings them to their home screen (buyer or admin)
    */
-  login(user: User): void {
+  login(username: string): void {
     this.errorMessage = "logincalled"
     this.display= "initial"
     this.router.navigate(['admin-homepage'])
@@ -66,5 +65,4 @@ export class SignUpComponent implements OnInit {
     //   this.router.navigate(['user-homepage'], { username: user.username})
     // }
   }
-
 }

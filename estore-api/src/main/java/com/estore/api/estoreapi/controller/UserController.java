@@ -101,8 +101,8 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         LOG.info("POST /users/" + user);
         try {
-            User newUser = userDAO.createUser(user);
-            if(newUser != null && userDAO.userExists(user)) {
+            if(user != null && !userDAO.userExists(user)) {
+                User newUser = userDAO.createUser(user);
                 return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
             } else {
                 LOG.log(Level.SEVERE, "conflict");

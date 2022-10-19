@@ -2,6 +2,11 @@ package com.estore.api.estoreapi.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.awt.image.AreaAveragingScaleFilter;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class User {
@@ -9,27 +14,22 @@ public class User {
     static final String STRING_FORMAT = "User [username=%s, password=%s, isAdmin%s]";
     @JsonProperty("username")
     private String username;
+
     @JsonProperty("password")
     private String password;
+
     @JsonProperty("isAdmin")
     private boolean isAdmin;
-    @JsonProperty("shoppingcart")
-    private ShoppingCart shoppingCart;
 
-    public User(@JsonProperty("username") String username, @JsonProperty("password") String password,
-            @JsonProperty("isAdmin") boolean isAdmin, @JsonProperty("shoppingcart") ShoppingCart shoppingCart) {
-        this.username = username;
-        this.password = password;
-        this.isAdmin = isAdmin;
-        this.shoppingCart = shoppingCart;
-    }
+    @JsonProperty("cart")
+    private List<Integer> shoppingCart;
 
     public User(@JsonProperty("username") String username, @JsonProperty("password") String password,
             @JsonProperty("isAdmin") boolean isAdmin) {
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;
-        this.shoppingCart = new ShoppingCart();
+        this.shoppingCart = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -56,12 +56,12 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
-    public ShoppingCart getCart() {
-        return shoppingCart;
+    public List<Integer> getCart() {
+        return this.shoppingCart;
     }
 
-    public void setShoppingCart(ShoppingCart cart) {
-        this.shoppingCart = cart;
+    public void addItemToCart(int productID) {
+        this.shoppingCart.add(productID);
     }
 
     public String toString() {

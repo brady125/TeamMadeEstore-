@@ -24,8 +24,7 @@ public class User {
     @JsonProperty("cart")
     private List<Integer> shoppingCart;
 
-    public User(@JsonProperty("username") String username, @JsonProperty("password") String password,
-            @JsonProperty("isAdmin") boolean isAdmin) {
+    public User(@JsonProperty("username") String username, @JsonProperty("password") String password) {
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;

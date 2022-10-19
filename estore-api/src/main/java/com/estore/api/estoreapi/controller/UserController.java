@@ -102,11 +102,12 @@ public class UserController {
         LOG.info("POST /users/" + user);
         try {
             User newUser = userDAO.createUser(user);
-            if(newUser != null && !userDAO.userExists(user))
+            if(newUser != null && userDAO.userExists(user)) {
                 return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
-            else
+            } else {
+                LOG.log(Level.SEVERE, "conflict");
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
-
+            }
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

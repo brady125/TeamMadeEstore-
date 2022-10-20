@@ -60,11 +60,6 @@ export class SignUpComponent implements OnInit {
    * Logs the user into their account and brings them to their home screen (buyer or admin)
    */
   login(username: string): void {
-    this.router.navigate(['admin-homepage'])
-    // if (user.username == "admin") {
-    //   this.router.navigate(['admin-homepage'])
-    // } else {
-    //   this.router.navigate(['user-homepage'], { username: user.username})
-    // }
+    this.router.navigate(['user-homepage/'+username]);
   }
 }

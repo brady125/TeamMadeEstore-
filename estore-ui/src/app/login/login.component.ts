@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   errorMessage = "";
   display = "none";
-  user: User = {username: "", password: ""};
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
@@ -24,13 +23,12 @@ export class LoginComponent implements OnInit {
   }
 
   handleLogin(user: User) {
-    this.user = user;
-    if (this.user.username == "admin") {
+    if (user.username == "admin") {
         this.router.navigate(['admin-homepage']);
     } else {
       this.errorMessage = "user homepage navigation";
       this.display = "initial";
-      // this.router.navigate(['user-homepage']);
+      this.router.navigate(['user-homepage/'+user.username]);
     }
   }
 }

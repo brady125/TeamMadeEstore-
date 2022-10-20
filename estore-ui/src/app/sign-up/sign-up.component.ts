@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../user'
-import { HttpErrorResponse } from '@angular/common/http';
-import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,7 +11,7 @@ import { ThisReceiver } from '@angular/compiler';
 export class SignUpComponent implements OnInit {
   errorMessage = "";
   display = "none";
-  
+
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {

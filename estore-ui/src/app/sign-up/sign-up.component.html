@@ -1,0 +1,22 @@
+<div class = "whole-page">
+    <h1 class = "title-name">E-Store Name</h1>
+    <div class = "sign-in-body">
+        <div class = "title">
+            <h2>Sign Up</h2>
+            <p>Already have an account?  <a routerLink="/login">Login Here</a></p>
+        </div>
+        <p id="errorMessage" [style.display]="display">{{errorMessage}}</p>
+        <div class = "sign-in-inputs">
+            <div id="inputs">
+                <p class="inputLabel">Username:</p>
+                <input id="username" #username>
+                <p class="inputLabel">Password:</p>
+                <input id="password" type="password" #password>
+            </div>
+            <div class = "center-button">
+            <button class = "sign-in-button" (click)="createAccount(username.value, password.value)">Create Account</button>
+            </div>
+        </div>
+    </div>
+</div>
+

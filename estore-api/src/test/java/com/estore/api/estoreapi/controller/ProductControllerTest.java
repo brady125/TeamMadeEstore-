@@ -34,7 +34,7 @@ public class ProductControllerTest {
     /* ********************* GET PRODUCT ************************** */
 
     @Test
-    public void testGetProduct() throws IOException {  // getProduct may throw IOException
+    public void testGetProduct() throws IOException { // getProduct may throw IOException
         // Setup
         Product product = new Product(5, "snek", "snake", "orange", 69, 55,
                 "issa snake");
@@ -54,7 +54,8 @@ public class ProductControllerTest {
     public void testGetProductNotFound() throws Exception { // createProduct may throw IOException
         // Setup
         int productId = 5;
-        // When the same id is passed in, our mock Product DAO will return null, simulating
+        // When the same id is passed in, our mock Product DAO will return null,
+        // simulating
         // no Product found
         when(productMockDAO.getProduct(productId)).thenReturn(null);
 
@@ -180,8 +181,8 @@ public class ProductControllerTest {
         ResponseEntity<Product[]> response = pc.searchProducts(searchString);
 
         // Analyze
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(products,response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(products, response.getBody());
     }
 
     @Test
@@ -197,8 +198,8 @@ public class ProductControllerTest {
         ResponseEntity<Product[]> response = pc.searchProducts(searchString);
 
         // Analyze
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(products,response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(products, response.getBody());
     }
 
     @Test
@@ -291,7 +292,7 @@ public class ProductControllerTest {
         ResponseEntity<Product> response = pc.updateProduct(hero);
 
         // Analyze
-        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test

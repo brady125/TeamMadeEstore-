@@ -15,7 +15,7 @@ public class ProductTest {
 
     @BeforeEach
     public void setupProduct() {
-        float price = (float) 212.5;
+        float price = 212.5F;
         product = new Product(5, "Charlie", "dog", "yellow", 7, price, "A friendly yellow lab.");
     }
 

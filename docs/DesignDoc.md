@@ -9,16 +9,22 @@ geometry: margin=1in
 > and appear in the generated PDF in italics._
 
 ## Team Information
-* Team name: TEAMNAME
+* Team name: The Restful Gods
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Brady Morin
+  * Aashwin Katiyar
+  * Erica Libby
+  * Logan Holmes
+  * Peyton Wagner
 
 ## Executive Summary
 
-This is a summary of the project.
+Our project is an e-store that sells animals. Users are able to make and
+login into an account in order to browse, search, and order the animals 
+we offer in our store. There is one admin account that is responsible 
+for adding, deleting, and updating products within the e-store. This 
+document provides an overview of the purpose of our store, the architecture
+and design of the system, and code coverage of our unit tests.
 
 ### Purpose
 > _Provide a very brief statement about the project and the most

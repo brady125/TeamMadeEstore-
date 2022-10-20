@@ -43,20 +43,6 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{username}/shoppingcart")
-    public ResponseEntity<User> getShoppingCart(@PathVariable String username) {
-        LOG.info("GET /users/" + username + "/shoppingcart");
-        try {
-            User user = userDAO.getUser(username);
-            if (user != null)
-                return new ResponseEntity<>(user, HttpStatus.OK);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (IOException e) {
-            LOG.log(Level.SEVERE, e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
     @GetMapping("")
     public ResponseEntity<User[]> getUsers(String containsText) {
         LOG.info("GET /users/");
@@ -74,7 +60,7 @@ public class UserController {
         LOG.info("GET /users/?username=" + username);
         try {
             User[] users = userDAO.getUsers(username);
-            return new ResponseEntity<User[]>(users, HttpStatus.OK);
+            return new ResponseEntity<>(users, HttpStatus.OK);
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -121,7 +107,8 @@ public class UserController {
         try {
             user = userDAO.updateUser(user);
             if (user != null)
-                return new ResponseEntity<User>(user, HttpStatus.OK);
+                return new ResponseEntity<>(user, HttpStatus.OK);
+
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
@@ -136,6 +123,7 @@ public class UserController {
             boolean deleted = userDAO.deleteUser(username);
             if (deleted)
                 return new ResponseEntity<>(HttpStatus.OK);
+
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());

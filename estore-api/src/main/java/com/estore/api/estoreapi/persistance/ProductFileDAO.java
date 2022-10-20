@@ -1,6 +1,5 @@
 package com.estore.api.estoreapi.persistance;
 
-import com.estore.api.estoreapi.controller.ProductController;
 import com.estore.api.estoreapi.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

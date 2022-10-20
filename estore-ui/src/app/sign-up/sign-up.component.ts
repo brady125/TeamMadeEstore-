@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,8 +10,9 @@ import { UserService } from '../user.service';
 export class SignUpComponent implements OnInit {
   errorMessage = "";
   display = "none";
+  user: Object[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -29,8 +31,11 @@ export class SignUpComponent implements OnInit {
     // if both fields are filled in and password meets requirements, 
     if (username != "" && password.length >= 8) {
       // then try to create the new account
-      if (this.userService.addUser(username, password)) {
-        this.login()
+      this.userService.addUser(username, password).subscribe(user => {
+        this.user.push(user);
+      });
+      if (this.user != null) {
+        this.login(this.user[0])
         return true;
       // if creating the account fails (username not unique), set appropiate error message
       } else {
@@ -47,11 +52,17 @@ export class SignUpComponent implements OnInit {
   }
 
   /**
-   * Logs the user into their account and brings them to their home screen (buyer or admin)- might need parameter(s)
+   * Logs the user into their account and brings them to their home screen (buyer or admin)
    */
-  login(): void {
-    this.errorMessage = "login() called"
-    this.display = "initial"
+  login(user: Object): void {
+    // if (user.isAdmin()) {
+    //   this.router.navigate(['admin-homepage'])
+    // } else {
+    //   this.router.navigate(['user-homepage'], { userid: user.getID()})
+    // }
+    // this.router.navigate(['admin-homepage'])
+    this.errorMessage = "logincalled"
+    this.display= "initial"
   }
 
 }

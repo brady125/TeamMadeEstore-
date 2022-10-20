@@ -1,12 +1,12 @@
 <div class = "whole-page">
     <h1 class = "title-name">E-Store Name</h1>
-    <div class = "sign-in-body">
+    <div class = "log-in-body">
         <div class = "title">
-            <h2>Sign Up</h2>
-            <p>Already have an account?  <a routerLink="/login">Login Here</a></p>
+            <h2>Log In</h2>
+            <p>Don't have an account?  <a>Sign Up Here</a></p>
         </div>
         <p id="createAccountFailedMessage" [style.display]="display">{{errorMessage}}</p>
-        <div class = "sign-in-inputs">
+        <div class = "log-in-inputs">
             <div id="inputs">
                 <p class="inputLabel">Username:</p>
                 <input id="username" #username>
@@ -14,7 +14,7 @@
                 <input id="password" type="password" #password>
             </div>
             <div class = "center-button">
-            <button class = "sign-in-button" (click)="createAccount(username.value, password.value)">Create Account</button>
+            <button class = "log-in-button" (click)="createAccount(username.value, password.value)">Log In</button>
             </div>
         </div>
     </div>

@@ -19,19 +19,21 @@ export class LoginComponent implements OnInit {
   }
 
   login(username: String, password: String) {
-    this.userService.loginUser(username, password).subscribe(user => {this.user = user;
-      if (username != "") {
-        if (username == "admin") {
-            this.router.navigate(['admin-homepage'])
-        }
-        else{
-          this.router.navigate(['user-homepage'])
-        }
+    this.userService.loginUser(username, password).subscribe(user => this.handleLogin(user));
+  }
+
+  handleLogin(user: User) {
+    this.user = user;
+    if (this.user.username != "") {
+      if (this.user.username == "admin") {
+          this.router.navigate(['admin-homepage'])
       }
       else{
-        this.errorMessage = "Username and/or password is incorrect.";
+        this.router.navigate(['user-homepage'])
       }
-    });
-    this.display = "initial";
+    } else {
+      this.errorMessage += "Username and/or password is incorrect.";
+      this.display = "initial";
+    }
   }
 }

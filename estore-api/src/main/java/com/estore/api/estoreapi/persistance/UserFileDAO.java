@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.estore.api.estoreapi.model.User;
@@ -130,7 +131,8 @@ public class UserFileDAO implements UserDAO {
     public User login(String username, String password) throws IOException {
         User user = this.getUser(username);
         if (user != null) {
-            if (user.getPassword() == password) {
+            if (user.getPassword() == password) {   //not working
+                LOG.log(Level.SEVERE, (user.getPassword()));
                 return user;
             }
         }

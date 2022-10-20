@@ -37,7 +37,7 @@ public class UserControllerTest {
     @Test
     public void testGetUser() throws IOException {  // getUser may throw IOException
         // Setup
-        User user = new User("PassiveInspector", "193alamoIDK", false);
+        User user = new User("PassiveInspector", "193alamoIDK");
         // When the same id is passed in, our mock User DAO will return the User
         // object
         when(userMockDAO.getUser(user.getUsername())).thenReturn(user);
@@ -84,7 +84,7 @@ public class UserControllerTest {
     @Test
     public void testCreateUser() throws IOException { // createUser may throw IOException
         // Setup
-        User user = new User("Goosemaster", "H0nkH0nk", false);
+        User user = new User("Goosemaster", "H0nkH0nk");
         // when createUser is called, return true simulating successful
         // creation and save
         when(userMockDAO.createUser(user)).thenReturn(user);
@@ -100,8 +100,8 @@ public class UserControllerTest {
     @Test
     public void testCreateUserFailed() throws IOException { // createUser may throw IOException
         // Setup
-        User user = new User("Zerma", "589", false);
-        // when createUser is called, return false simulating failed
+        User user = new User("Zerma", "589");
+        // when createUser is called, retur simulating failed
         // creation and save
         when(userMockDAO.userExists(user)).thenReturn(true);
 
@@ -115,7 +115,7 @@ public class UserControllerTest {
     @Test
     public void testCreateUserHandleException() throws IOException { // createUser may throw IOException
         // Setup
-        User user = new User("LiterallyTheJoker", "WowCrazy", false);
+        User user = new User("LiterallyTheJoker", "WowCrazy");
 
         // When createUser is called on the Mock User DAO, throw an IOException
         doThrow(new IOException()).when(userMockDAO).createUser(user);
@@ -133,9 +133,9 @@ public class UserControllerTest {
     public void testGetUsers() throws IOException { // createUser may throw IOException
         // Setup
         User[] users = new User[3];
-        users[0] = new User("Goosemaster", "H0nkH0nk", false);
-        users[1] = new User("Zerma", "589", false);
-        users[2] = new User("LiterallyTheJoker", "WowCrazy", false);
+        users[0] = new User("Goosemaster", "H0nkH0nk");
+        users[1] = new User("Zerma", "589");
+        users[2] = new User("LiterallyTheJoker", "WowCrazy");
 
         // When getUsers is called return the Users created above
         when(userMockDAO.getUsers(null)).thenReturn(users);
@@ -168,8 +168,8 @@ public class UserControllerTest {
         // Setup
         String searchString = "ly";
         User[] users = new User[2];
-        users[0] = new User("shortly", "goop", false);
-        users[1] = new User("sheetly", "glop", false);
+        users[0] = new User("shortly", "goop");
+        users[1] = new User("sheetly", "glop");
         // When getUsers is called with the search string, return the two
         /// users above
         when(userMockDAO.getUsers(searchString)).thenReturn(users);
@@ -261,7 +261,7 @@ public class UserControllerTest {
     @Test
     public void testUpdateUser() throws IOException { // updateUser may throw IOException
         // Setup
-        User user = new User("PantsAndSocks", "DresserDrawer", false);
+        User user = new User("PantsAndSocks", "DresserDrawer");
         // when updateUser is called, return true simulating successful
         // update and save
         when(userMockDAO.updateUser(user)).thenReturn(user);
@@ -278,7 +278,7 @@ public class UserControllerTest {
     @Test
     public void testUpdateUserFailed() throws IOException { // updateUser may throw IOException
         // Setup
-        User user = new User("noname", "IgotNoName", false);
+        User user = new User("noname", "IgotNoName");
         // when updateUser is called, return true simulating successful
         // update and save
         when(userMockDAO.updateUser(user)).thenReturn(null);
@@ -293,7 +293,7 @@ public class UserControllerTest {
     @Test
     public void testUpdateUserHandleException() throws IOException { // updateUser may throw IOException
         // Setup
-        User user = new User("noname", "IgotNoName", false);
+        User user = new User("noname", "IgotNoName");
         // When updateUser is called on the userMockDAO, throw an IOException
         doThrow(new IOException()).when(userMockDAO).updateUser(user);
 

@@ -19,20 +19,22 @@ public class UserTest {
 
     @BeforeEach
     public void setupProduct() {
-        user = new User("Book_x_Bro", "BuffBrain", false);
+        user = new User("Book_x_Bro", "BuffBrain");
     }
 
     @Test
     public void testGetUsername() {
         assertEquals("Book_x_Bro", user.getUsername());
     }
+
     @Test
     public void testGetPassword() {
         assertEquals("BuffBrain", user.getPassword());
     }
+
     @Test
     public void testIsAdmin() {
-        assert(!user.isAdmin());
+        assert (!user.isAdmin());
     }
 
     @Test

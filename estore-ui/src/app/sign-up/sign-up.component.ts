@@ -32,22 +32,26 @@ export class SignUpComponent implements OnInit {
     // trim whitespace
     username = username.trim();
     password = password.trim();
-    // if both fields are filled in and password meets requirements, 
-    if (username != "" && password.length >= 8) {
-      // then try to create the new account
-      this.userService.addUser({username, password} as User).subscribe(newUser => {
-        this.user = newUser.username;
-        if (this.user == username) {
-          this.login(this.user)
-        }});
-      // if creating the account fails (username not unique), set appropiate error message
-      this.errorMessage = "This username was already taken.";
-      this.display = "initial"
-    // use else if statements to reveal an errormessage that describes the problem
-    } else if (username == "") {
+    // use if statements to reveal an errormessage that describes the problem
+    if (username == "") {
       this.errorMessage = "You must enter a username.";
     } else if (password.length < 8) {
       this.errorMessage = "Your password must be at least 8 characters long."
+    // if both fields are filled in and password meets requirements, 
+    } else {
+      // then try to create the new account
+      this.userService.addUser({username, password} as User).subscribe(
+        newUser => {
+          this.user = newUser.username;
+          if (this.user == username) {
+            this.login(this.user)
+          }
+        }, 
+        // if creating the account fails (username not unique), set appropiate error message
+        err => {
+          this.errorMessage = "This username was already taken.";
+        }
+      );
     }
     this.display = "initial";
   }
@@ -56,8 +60,6 @@ export class SignUpComponent implements OnInit {
    * Logs the user into their account and brings them to their home screen (buyer or admin)
    */
   login(username: string): void {
-    this.errorMessage = "logincalled"
-    this.display= "initial"
     this.router.navigate(['admin-homepage'])
     // if (user.username == "admin") {
     //   this.router.navigate(['admin-homepage'])

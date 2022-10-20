@@ -10,7 +10,7 @@ import { User } from '../user'
 export class LoginComponent implements OnInit {
   errorMessage = "";
   display = "none";
-  user: User[] = [];
+  user: User = {username: "", password: ""};
 
   constructor(private userService: UserService) { }
 
@@ -18,14 +18,12 @@ export class LoginComponent implements OnInit {
   }
 
   login(username: String, password: String) {
-    this.userService.loginUser(username, password).subscribe(user => {
-      this.user.push(user);
-    });
-    if (this.user.length != 0) {
-      if (this.user[0].username == "admin") {
-        ///
+    this.userService.loginUser(username, password).subscribe(user => {this.user = user;
+      if (this.user.username != "") {
+        if (this.user.username == "admin") {
+          ///
+        }
       }
-    }
+    });
   }
-
 }

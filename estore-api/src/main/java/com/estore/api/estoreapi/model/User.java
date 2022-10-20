@@ -2,10 +2,7 @@ package com.estore.api.estoreapi.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.logging.Logger;
-
 public class User {
-    private static final Logger LOG = Logger.getLogger(User.class.getName());
     static final String STRING_FORMAT = "User [username=%s, password=%s, isAdmin%s]";
     @JsonProperty("username")
     private String username;
@@ -15,22 +12,6 @@ public class User {
     private boolean isAdmin;
     @JsonProperty("shoppingcart")
     private ShoppingCart shoppingCart;
-
-    // public User(@JsonProperty("username") String username, @JsonProperty("password") String password,
-    //         @JsonProperty("isAdmin") boolean isAdmin, @JsonProperty("shoppingcart") ShoppingCart shoppingCart) {
-    //     this.username = username;
-    //     this.password = password;
-    //     this.isAdmin = isAdmin;
-    //     this.shoppingCart = shoppingCart;
-    // }
-
-    // public User(@JsonProperty("username") String username, @JsonProperty("password") String password,
-    //         @JsonProperty("isAdmin") boolean isAdmin) {
-    //     this.username = username;
-    //     this.password = password;
-    //     this.isAdmin = isAdmin;
-    //     this.shoppingCart = new ShoppingCart();
-    // }
 
     public User(@JsonProperty("username") String username, @JsonProperty("password") String password) {
         this.username = username;

@@ -22,7 +22,8 @@ public class UserTest {
         products[2] = new Product(2, "George", "monkey", "brown", 5, 60, "A friendly and curious monkey.");
 
         cart = new ShoppingCart(products);
-        user = new User("Book_x_Bro", "BuffBrain", false, cart);
+        user = new User("Book_x_Bro", "BuffBrain");
+        user.setShoppingCart(cart);
     }
 
     @Test

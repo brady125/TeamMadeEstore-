@@ -131,8 +131,7 @@ public class UserFileDAO implements UserDAO {
     public User login(String username, String password) throws IOException {
         User user = this.getUser(username);
         if (user != null) {
-            if (user.getPassword() == password) {   //not working
-                LOG.log(Level.SEVERE, (user.getPassword()));
+            if (user.getPassword().equals(password)) {
                 return user;
             }
         }

@@ -87,7 +87,6 @@ public class UserController {
         try {
             User match = userDAO.login(user.getUsername(), user.getPassword());
             if (match != null) {
-                LOG.log(Level.SEVERE, match.getUsername());
                 return new ResponseEntity<User>(match, HttpStatus.OK);
             } else {
                 LOG.log(Level.SEVERE, "conflict");

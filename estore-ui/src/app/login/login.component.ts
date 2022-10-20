@@ -26,10 +26,11 @@ export class LoginComponent implements OnInit {
     this.user = user;
     if (this.user.username != "") {
       if (this.user.username == "admin") {
-          this.router.navigate(['admin-homepage'])
-      }
-      else{
-        this.router.navigate(['user-homepage'])
+          this.router.navigate(['admin-homepage']);
+      } else {
+        this.errorMessage += "user homepage navigation";
+        this.display = "initial";
+        // this.router.navigate(['user-homepage']);
       }
     } else {
       this.errorMessage += "Username and/or password is incorrect.";

@@ -18,4 +18,8 @@ export class UserService {
   addUser(username: String, password: String): Observable<Object> {
     return this.http.post<Object>(this.usersURL, {"username": username, "password": password}, this.httpOptions)
   }
+
+  
+
+
 }

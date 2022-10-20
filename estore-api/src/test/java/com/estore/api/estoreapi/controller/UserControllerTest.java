@@ -101,6 +101,7 @@ public class UserControllerTest {
     public void testCreateUserFailed() throws IOException { // createUser may throw IOException
         // Setup
         User user = new User("Zerma", "589");
+
         // when createUser is called, return false simulating failed
         // creation and save
         when(userMockDAO.userExists(user)).thenReturn(true);

@@ -15,6 +15,7 @@ public class User {
 
     @JsonProperty("isAdmin")
     private boolean isAdmin;
+    
     @JsonProperty("shoppingcart")
     private List<Integer> shoppingCart;
 

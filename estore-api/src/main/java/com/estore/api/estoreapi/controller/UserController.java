@@ -67,16 +67,34 @@ public class UserController {
         }
     }
 
+    @PostMapping("/check")
+    public ResponseEntity<User> loginUser(@RequestBody User user) {
+        LOG.info("POST /users/check");
+        try {
+            User match = userDAO.login(user.getUsername(), user.getPassword());
+            if (match != null) {
+                return new ResponseEntity<User>(match, HttpStatus.OK);
+            } else {
+                LOG.log(Level.SEVERE, "conflict");
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         LOG.info("POST /users/" + user);
         try {
-            User newUser = userDAO.createUser(user);
-            if(newUser != null && !userDAO.userExists(user))
-                return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-
+            if(user != null && !userDAO.userExists(user)) {
+                User newUser = userDAO.createUser(user);
+                return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+            } else {
+                LOG.log(Level.SEVERE, "conflict");
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

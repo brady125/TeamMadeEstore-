@@ -101,7 +101,8 @@ public class UserControllerTest {
     public void testCreateUserFailed() throws IOException { // createUser may throw IOException
         // Setup
         User user = new User("Zerma", "589");
-        // when createUser is called, retur simulating failed
+
+        // when createUser is called, return false simulating failed
         // creation and save
         when(userMockDAO.userExists(user)).thenReturn(true);
 
@@ -302,6 +303,30 @@ public class UserControllerTest {
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+    }
+
+    @Test
+    public void testLoginUserSucceed() throws IOException {
+        User user = new User("Betty", "bettypassword");
+        when(userMockDAO.login(user.getUsername(), user.getPassword())).thenReturn(user);
+        ResponseEntity<User> response = uc.loginUser(user);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void testLoginUserConflict() throws IOException {
+        User user = new User("Betty", "bettypassword");
+        when(userMockDAO.login(user.getUsername(), user.getPassword())).thenReturn(null);
+        ResponseEntity<User> response = uc.loginUser(user);
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+    }
+
+    @Test
+    public void testLoginUserError() throws IOException {
+        User user = new User("Betty", "bettypassword");
+        doThrow(new IOException()).when(userMockDAO).login(user.getUsername(), user.getPassword());
+        ResponseEntity<User> response = uc.loginUser(user);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 }
 

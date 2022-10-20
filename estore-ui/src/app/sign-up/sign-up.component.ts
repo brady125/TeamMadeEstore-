@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../user'
 
 @Component({
   selector: 'app-sign-up',
@@ -10,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SignUpComponent implements OnInit {
   errorMessage = "";
   display = "none";
-  user: Object[] = [];
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
@@ -24,45 +24,35 @@ export class SignUpComponent implements OnInit {
    * @param password the password for the new account entered by the user, must be at least 8 characters long
    * @returns true if the account was created and false if it was not
    */
-  createAccount(username: String, password: String): boolean {
+  createAccount(username: String, password: String): void {
     // trim whitespace
     username = username.trim();
     password = password.trim();
-    // if both fields are filled in and password meets requirements, 
-    if (username != "" && password.length >= 8) {
-      // then try to create the new account
-      this.userService.addUser(username, password).subscribe(user => {
-        this.user.push(user);
-      });
-      if (this.user != null) {
-        this.login(this.user[0])
-        return true;
-      // if creating the account fails (username not unique), set appropiate error message
-      } else {
-        this.errorMessage = "This username was already taken.";
-      }
-    // use else if statements to reveal an errormessage that describes the problem
-    } else if (username == "") {
+    // use if statements to reveal an errormessage that describes the problem
+    if (username == "") {
       this.errorMessage = "You must enter a username.";
     } else if (password.length < 8) {
       this.errorMessage = "Your password must be at least 8 characters long."
+    // if both fields are filled in and password meets requirements, 
+    } else {
+      // then try to create the new account
+      this.userService.addUser({username, password} as User).subscribe(
+        newUser => {
+          this.login(newUser.username)
+        }, 
+        // if creating the account fails (username not unique), set appropiate error message
+        err => {
+          this.errorMessage = "This username was already taken.";
+        }
+      );
     }
     this.display = "initial";
-    return false;
   }
 
   /**
    * Logs the user into their account and brings them to their home screen (buyer or admin)
    */
-  login(user: Object): void {
-    // if (user.isAdmin()) {
-    //   this.router.navigate(['admin-homepage'])
-    // } else {
-    //   this.router.navigate(['user-homepage'], { userid: user.getID()})
-    // }
-    // this.router.navigate(['admin-homepage'])
-    this.errorMessage = "logincalled"
-    this.display= "initial"
+  login(username: string): void {
+    this.router.navigate(['user-homepage/'+username]);
   }
-
 }

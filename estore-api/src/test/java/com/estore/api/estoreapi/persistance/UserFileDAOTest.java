@@ -128,9 +128,8 @@ public class UserFileDAOTest {
 
     @Test
     public void testUpdateUser() {
-        // Invoke
         User User = new User("SupJathan32", "wonkywoo23");
-
+        
         User results = assertDoesNotThrow(() -> userFileDAO.updateUser(User),
                 "Unexpected exception thrown");
         // Analyze
@@ -141,6 +140,7 @@ public class UserFileDAOTest {
 
     @Test
     public void testUpdateUserNotFound() {
+    
         // Invoke
         User User = new User("M_R_Bones", "Sk3llington");
 
@@ -156,5 +156,25 @@ public class UserFileDAOTest {
             .readValue(new File("doesnt_matter.txt"), User[].class);
 
         assertThrows(IOException.class, () -> new UserFileDAO("doesnt_matter.txt", mockObjectMapper), "IOException not thrown");
+    }
+
+    @Test
+    public void testLoginCorrect() throws IOException {
+        User user = testUsers[0];
+        User result = userFileDAO.login(user.getUsername(), user.getPassword());
+        assertEquals(user, result);
+    }
+
+    @Test
+    public void testLoginWrongPassword() throws IOException {
+        User user = testUsers[0];
+        User result = userFileDAO.login(user.getUsername(), "wrongpassord");
+        assertEquals(null, result);
+    }
+
+    @Test
+    public void testLoginWrongUsername() throws IOException {
+        User result = userFileDAO.login("notanexistinguser", "wrongpassord");
+        assertEquals(null, result);
     }
 }

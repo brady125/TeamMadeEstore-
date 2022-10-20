@@ -1,16 +1,11 @@
 package com.estore.api.estoreapi.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.awt.image.AreaAveragingScaleFilter;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Logger;
-
 public class User {
-    private static final Logger LOG = Logger.getLogger(User.class.getName());
     static final String STRING_FORMAT = "User [username=%s, password=%s, isAdmin%s]";
     @JsonProperty("username")
     private String username;
@@ -20,14 +15,13 @@ public class User {
 
     @JsonProperty("isAdmin")
     private boolean isAdmin;
-
-    @JsonProperty("cart")
+    
+    @JsonProperty("shoppingcart")
     private List<Integer> shoppingCart;
 
     public User(@JsonProperty("username") String username, @JsonProperty("password") String password) {
         this.username = username;
         this.password = password;
-        this.isAdmin = false;
         this.shoppingCart = new ArrayList<>();
     }
 

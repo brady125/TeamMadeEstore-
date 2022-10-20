@@ -13,9 +13,7 @@ import { ThisReceiver } from '@angular/compiler';
 export class SignUpComponent implements OnInit {
   errorMessage = "";
   display = "none";
-  // user: User = {username: "", password: ""}
-  private user = "";
-
+  
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -42,10 +40,7 @@ export class SignUpComponent implements OnInit {
       // then try to create the new account
       this.userService.addUser({username, password} as User).subscribe(
         newUser => {
-          this.user = newUser.username;
-          if (this.user == username) {
-            this.login(this.user)
-          }
+          this.login(newUser.username)
         }, 
         // if creating the account fails (username not unique), set appropiate error message
         err => {

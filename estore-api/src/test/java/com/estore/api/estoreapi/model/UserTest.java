@@ -19,7 +19,7 @@ public class UserTest {
 
     @BeforeEach
     public void setupProduct() {
-        user = new User("Book_x_Bro", "BuffBrain", false);
+        user = new User("Book_x_Bro", "BuffBrain");
     }
 
     @Test

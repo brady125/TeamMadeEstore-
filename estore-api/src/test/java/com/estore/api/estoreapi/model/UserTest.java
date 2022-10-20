@@ -19,18 +19,7 @@ public class UserTest {
 
     @BeforeEach
     public void setupProduct() {
-<<<<<<< HEAD
-        Product[] products = new Product[3];
-        products[0] = new Product(0, "Orly", "turtle", "green", 7, 20, "A handsome green turtle.");
-        products[1] = new Product(1, "Sprinkle", "weasel", "red", 3, 16, "A friendly crimson weasel.");
-        products[2] = new Product(2, "George", "monkey", "brown", 5, 60, "A friendly and curious monkey.");
-
-        cart = new ShoppingCart(products);
-        user = new User("Book_x_Bro", "BuffBrain");
-        user.setShoppingCart(cart);
-=======
         user = new User("Book_x_Bro", "BuffBrain", false);
->>>>>>> 399c6452cb57174b6307ca04a6f356471cbe54d9
     }
 
     @Test
@@ -48,8 +37,6 @@ public class UserTest {
         assert (!user.isAdmin());
     }
 
-<<<<<<< HEAD
-=======
     @Test
     public void testSetPassword() {
         user.setPassword("BruhFame9");
@@ -62,7 +49,6 @@ public class UserTest {
         assertTrue(user.isAdmin());
     }
 
->>>>>>> 399c6452cb57174b6307ca04a6f356471cbe54d9
     @Test
     public void testGetCart() {
         List<Integer> checkCart = new ArrayList<>();

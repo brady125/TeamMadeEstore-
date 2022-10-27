@@ -10,6 +10,7 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AdminProductComponent } from './admin-product/admin-product.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { UserPageComponent } from './user-page/user-page.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { UserPageComponent } from './user-page/user-page.component';
     AdminPageComponent,
     AdminProductComponent,
     HomepageComponent,
-    UserPageComponent
+    UserPageComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,

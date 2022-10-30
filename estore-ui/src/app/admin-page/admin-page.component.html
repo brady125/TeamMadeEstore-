@@ -3,11 +3,10 @@
     <div class = "admin-page-body">
         <!-- navigation bar -->
         <!-- search bar -->
-        <input id="searchbar" #searchTerm>
-        <button (click)="search(searchTerm.value)">Search</button>
+        <input id="searchbar" #searchbar (input)="search(searchbar.value)">
         <!-- add product button -->
         <!-- for loop to display all products -->
-        <li *ngFor="let product of products">
+        <li *ngFor="let product of products$ | async">
             <p>{{product.name}}</p>
         </li>
     </div>

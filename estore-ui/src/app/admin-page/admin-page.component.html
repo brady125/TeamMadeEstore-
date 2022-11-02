@@ -2,12 +2,16 @@
     <h1 class = "title-name">Galactic Pets</h1>
     <div class = "admin-page-body">
         <!-- navigation bar -->
+        <nav>
+            <a routerLink="/admin-homepage">Home</a>
+            <a routerLink="/login">Log Out</a>
+        </nav>
         <!-- search bar -->
         <input id="searchbar" #searchbar (input)="search(searchbar.value)">
         <!-- add product button -->
         <!-- for loop to display all products -->
-        <li *ngFor="let product of products$ | async">
-            <p>{{product.name}}</p>
+        <li *ngFor="let product of products">
+            <app-product-view [product]="product"></app-product-view>
         </li>
     </div>
 </div>

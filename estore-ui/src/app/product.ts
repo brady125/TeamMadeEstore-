@@ -4,4 +4,5 @@ export interface Product {
     age: number,
     color: String,
     description: String
+    price: Number
 }

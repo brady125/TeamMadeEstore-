@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: "", redirectTo: "/sign-up", pathMatch: 'full'},
   { path: "sign-up", component: SignUpComponent },
   { path: "login", component: LoginComponent },
-  { path: "admin-homepage", component: AdminPageComponent },
+  { path: "admin-homepage", component: AdminPageComponent},
   { path: "user-homepage/:username", component: UserPageComponent },
   { path: "admin-product-page/:id", component: AdminProductComponent },
   // { path: "user-product-page/:userid/:id", component: UserProductComponent },

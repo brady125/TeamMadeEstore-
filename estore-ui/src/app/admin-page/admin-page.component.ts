@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { debounceTime, distinctUntilChanged, Observable, Subject, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Observable, Subject, switchMap , of, map} from 'rxjs';
 import { Product } from "../product";
 import { ProductService } from '../product.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-admin-page',
@@ -10,30 +11,16 @@ import { ProductService } from '../product.service';
 })
 export class AdminPageComponent implements OnInit {
 
-  products$!: Observable<Product[]>;
-  private searchTerms = new Subject<string>();
+  products: Product[] = []
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.products$ = this.searchTerms.pipe(
-      // wait 300ms after each keystroke before considering the term
-      debounceTime(300),
-
-      // ignore new term if same as previous term
-      distinctUntilChanged(),
-
-      // switch to new search observable each time the term changes
-      switchMap((term: string) => this.productService.searchProducts(term)),
-    );
-    // initialize products with all products
     this.search("")
   }
 
   search(searchTerm: string): void {
-    // modify products to only contain relevant products
-    // this.productService.searchProducts(searchTerm).subscribe(products => this.products = products)
-    this.searchTerms.next(searchTerm)
+    this.productService.searchProducts(searchTerm).subscribe(p => this.products = p)
   }
 
 

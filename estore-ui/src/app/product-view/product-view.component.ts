@@ -9,6 +9,8 @@ import { ProductService } from '../product.service';
 })
 export class ProductViewComponent implements OnInit {
   @Input() product!: Product;
+  @Input() username!: string;
+  @Input() admin!: Boolean;
   deleted = false
 
   constructor(private productService: ProductService) { }

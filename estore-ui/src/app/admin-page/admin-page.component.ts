@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { debounceTime, distinctUntilChanged, Observable, Subject, switchMap , of, map} from 'rxjs';
 import { Product } from "../product";
 import { ProductService } from '../product.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-admin-page',
@@ -13,7 +11,7 @@ export class AdminPageComponent implements OnInit {
 
   products: Product[] = []
 
-  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     this.search("")
@@ -22,6 +20,5 @@ export class AdminPageComponent implements OnInit {
   search(searchTerm: string): void {
     this.productService.searchProducts(searchTerm).subscribe(p => this.products = p)
   }
-
 
 }

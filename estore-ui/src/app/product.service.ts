@@ -8,7 +8,7 @@ import { Product } from "./product";
 })
 export class ProductService {
 
-  private usersURL = 'http://localhost:8080/products';
+  private productsURL = 'http://localhost:8080/products';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -16,7 +16,19 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   searchProducts(searchTerm: String): Observable<Product[]> {
-    return this.http.get<Product[]>(this.usersURL+"/?text="+searchTerm, this.httpOptions);
+    return this.http.get<Product[]>(this.productsURL+"/?text="+searchTerm, this.httpOptions);
+  }
+
+  getProduct(id: number): Observable<Product> {
+    return this.http.get<Product>(this.productsURL+"/"+id, this.httpOptions);
+  }
+
+  createProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.productsURL, product, this.httpOptions);
+  }
+
+  updateProduct(product: Product): Observable<Product> {
+    return this.http.put<Product>(this.productsURL, product, this.httpOptions);
   }
 
 }

@@ -14,5 +14,8 @@
         <li *ngFor="let product of products">
             <app-product-view [product]="product" [admin]="true"></app-product-view>
         </li>
+        <div *ngIf="products.length == 0">
+            <p>There are no products in the inventory that match your search.</p>
+        </div>
     </div>
 </div>

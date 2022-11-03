@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from "../product";
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-product-view',
@@ -8,11 +9,15 @@ import { Product } from "../product";
 })
 export class ProductViewComponent implements OnInit {
   @Input() product!: Product;
+  deleted = false
 
-  constructor() { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
   }
 
+  delete() {
+    this.productService.deleteProduct(this.product.id).subscribe(_ => this.deleted = true)
+  }
 
 }

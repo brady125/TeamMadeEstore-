@@ -1,8 +1,7 @@
-import { APP_ID, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpRequest, HttpResponse, HttpStatusCode } from '@angular/common/http';
-import { catchError, Observable, of } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { User } from './user';
-import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

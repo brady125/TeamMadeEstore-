@@ -1,1 +1,27 @@
-<p>admin-product works!</p>
+<div class = "whole-page">
+    <h1 class = "title-name">Galactic Pets</h1>
+    <div class = "admin-product-body">
+        <!-- navigation bar -->
+        <nav>
+            <a routerLink="/admin-homepage">Home</a>
+            <a routerLink="/login">Log Out</a>
+        </nav>
+        <!-- Editing Fields -->
+        <h3>Name: </h3>
+        <textarea [(ngModel)]="product.name" rows="1">{{product.name}}</textarea>
+        <h3>Species: </h3>
+        <textarea [(ngModel)]="product.species" rows="1">{{product.species}}</textarea>
+        <h3>Color: </h3>
+        <textarea [(ngModel)]="product.color" rows="1">{{product.color}}</textarea>
+        <h3>Age: </h3>
+        <textarea [(ngModel)]="product.age" rows="1" cols="3">{{product.age}}</textarea>
+        <h3>Description: </h3>
+        <textarea [(ngModel)]="product.description" rows="5" cols="30">{{product.description}}</textarea>
+        <h3>Price: </h3>
+        <span>$</span><textarea [(ngModel)]="product.price" rows="1" cols="5">{{product.price}}</textarea>
+        <br>
+        <button (click)="save()">Save</button>
+        <button routerLink="/admin-homepage">Back to Home</button>
+        <p>{{message}}</p>
+    </div>
+</div>

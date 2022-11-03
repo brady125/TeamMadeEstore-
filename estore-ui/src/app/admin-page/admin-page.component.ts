@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from "../product";
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-admin-page',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPageComponent implements OnInit {
 
-  constructor() { }
+  products: Product[] = []
+
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
+    this.search("")
+  }
+
+  search(searchTerm: string): void {
+    this.productService.searchProducts(searchTerm).subscribe(p => this.products = p)
   }
 
 }

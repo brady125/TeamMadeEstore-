@@ -1,1 +1,18 @@
-<p>admin-page works!</p>
+<div class = "whole-page">
+    <h1 class = "title-name">Galactic Pets</h1>
+    <div class = "admin-page-body">
+        <!-- navigation bar -->
+        <nav>
+            <a routerLink="/admin-homepage">Home</a>
+            <a routerLink="/login">Log Out</a>
+        </nav>
+        <!-- search bar -->
+        <input id="searchbar" #searchbar (input)="search(searchbar.value)"><br>
+        <!-- add product button -->
+        <button routerLink="/admin-product/0">Add Product</button>
+        <!-- for loop to display all products -->
+        <li *ngFor="let product of products">
+            <app-product-view [product]="product"></app-product-view>
+        </li>
+    </div>
+</div>

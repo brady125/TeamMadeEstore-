@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component'
+import { CheckoutPageComponent } from './checkout-page/checkout-page.component'
 
 const routes: Routes = [
   { path: "", redirectTo: "/sign-up", pathMatch: 'full'},
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: "user-homepage/:username", component: UserPageComponent },
   { path: "admin-product-page/:id", component: AdminProductComponent },
   // { path: "user-product-page/:userid/:id", component: UserProductComponent },
-  { path: "shopping-cart/:username", component: ShoppingCartComponent }
+  { path: "shopping-cart/:username", component: ShoppingCartComponent },
+  { path: "checkout-page/:username", component: CheckoutPageComponent }
 ];
 
 @NgModule({

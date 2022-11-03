@@ -1,1 +1,17 @@
-<p>user-page works!</p>
+<div class = "whole-page">
+    <h1 class = "title-name">Galactic Pets</h1>
+    <div class = "user-page-body">
+        <!-- navigation bar -->
+        <nav>
+            <a routerLink="/user-homepage/{{username}}">Home</a>
+            <a routerLink="/login">Log Out</a>
+            <a routerLink="/shopping-cart/{{username}}">Shopping Cart</a>
+        </nav>
+        <!-- search bar -->
+        <input id="searchbar" #searchbar (input)="search(searchbar.value)"><br>
+        <!-- for loop to display all products -->
+        <li *ngFor="let product of products">
+            <app-product-view [product]="product" [admin]="false" [username]="username"></app-product-view>
+        </li>
+    </div>
+</div>

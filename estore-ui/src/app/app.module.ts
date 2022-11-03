@@ -9,7 +9,6 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AdminProductComponent } from './admin-product/admin-product.component';
-import { HomepageComponent } from './homepage/homepage.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { ProductViewComponent } from './product-view/product-view.component';
 
@@ -20,7 +19,6 @@ import { ProductViewComponent } from './product-view/product-view.component';
     LoginComponent,
     AdminPageComponent,
     AdminProductComponent,
-    HomepageComponent,
     UserPageComponent,
     ProductViewComponent
   ],

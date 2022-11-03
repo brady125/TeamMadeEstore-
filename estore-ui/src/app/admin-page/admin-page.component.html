@@ -12,7 +12,7 @@
         <button routerLink="/admin-product/0">Add Product</button>
         <!-- for loop to display all products -->
         <li *ngFor="let product of products">
-            <app-product-view [product]="product"></app-product-view>
+            <app-product-view [product]="product" [admin]="true"></app-product-view>
         </li>
     </div>
 </div>

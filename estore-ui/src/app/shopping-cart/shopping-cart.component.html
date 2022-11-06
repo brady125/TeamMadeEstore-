@@ -4,6 +4,8 @@
     <li *ngFor="let i of products">
         <app-product-view [product]="product" [admin]="false" [username]="username"></app-product-view>
     </li>
+    <!-- going to need to either modify product-view to know whether it is being used in a shopping cart -->
+    <!-- or create a seperate similar component that has a remove from shopping cart button -->
 
-    <!-- <button class = "checkout-btn" (click)="checkout()">Checkout!!!</button> -->
+    <button class = "checkout-btn" (click)="checkout()">Checkout!!!</button>
 </div>

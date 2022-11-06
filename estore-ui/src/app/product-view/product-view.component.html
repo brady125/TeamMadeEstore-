@@ -1,0 +1,22 @@
+<!-- Information -->
+<div *ngIf="!deleted">
+    <h2>{{product.name}}</h2>
+    <p>Species: {{product.species}}</p>
+    <p>Color: {{product.color}}</p>
+    <p>Age: {{product.age}}</p>
+    <p>Desription: {{product.description}}</p>
+    <p>Price: ${{product.price.toFixed(2)}}</p>
+</div>
+<!-- admin options -->
+<div *ngIf="!deleted && admin">
+    <button routerLink="/admin-product/{{product.id}}">Edit</button>
+    <button (click)="delete()">Delete</button>
+</div>
+<!-- buyer options -->
+<div *ngIf="!deleted && !admin">
+    <button routerLink="/shopping-cart/{{username}}">Add to Shopping Cart</button>
+</div>
+<!-- deleted message -->
+<div *ngIf="deleted">
+    <p #deletedMessage>{{product.name}} has been deleted.</p>
+</div>

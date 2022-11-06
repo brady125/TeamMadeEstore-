@@ -12,6 +12,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
+import { ProductViewComponent } from './product-view/product-view.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
     HomepageComponent,
     UserPageComponent,
     ShoppingCartComponent,
-    CheckoutPageComponent
+    CheckoutPageComponent,
+    ProductViewComponent
   ],
   imports: [
     BrowserModule,

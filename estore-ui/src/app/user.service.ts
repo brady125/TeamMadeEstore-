@@ -23,4 +23,12 @@ export class UserService {
   loginUser(username: String, password: String): Observable<User> {
     return this.http.post<User>(this.usersURL+"/check", {"username": username, "password": password}, this.httpOptions);
   }
+
+  getCart(username: String): Observable<User>{
+    return this.http.get<User>(this.usersURL+"/shopping-cart/"+username, this.httpOptions);
+  }
+
+  getUser(id: number): Observable<User> {
+    return this.http.get<User>(this.usersURL+"/"+id, this.httpOptions);
+  }
 }

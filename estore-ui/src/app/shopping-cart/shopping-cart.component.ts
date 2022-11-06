@@ -11,17 +11,28 @@ import { User } from '../user'
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
+  
+  user: User | undefined;
 
-  products: Product[] = []
-
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
+    this.getShoppingCart
   }
 
-  checkout(products: Product[], user: User): void{
-      if (products.length > 0){
-        this.router.navigate(['checkout-page/'+user.username]);
+  getUser(){
+    const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
+    this.userService.getUser(id)
+      .subscribe(user => this.user = user);
+  }
+
+  getShoppingCart(user: User){
+    this.userService.getCart(user.username).subscribe()
+  }
+
+  checkout(user: User): void{
+      if (this.userService.getCart(user.username) != null){
+        this.router.navigate(['checkout-page']);
       }
   }
 

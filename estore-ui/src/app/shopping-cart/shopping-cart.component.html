@@ -1,9 +1,9 @@
 <div class = "body">
     <!-- insert navigation here -->
 
-    <h2>Items in shopping cart: </h2>
+    <li *ngFor="let i of products">
+        <app-product-view [product]="product" [admin]="false" [username]="username"></app-product-view>
+    </li>
 
-    <!-- list of items here -->
-
-    <button class = "checkout-btn">Checkout!!!</button>
+    <!-- <button class = "checkout-btn" (click)="checkout()">Checkout!!!</button> -->
 </div>

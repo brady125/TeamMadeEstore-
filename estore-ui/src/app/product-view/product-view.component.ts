@@ -11,6 +11,7 @@ export class ProductViewComponent implements OnInit {
   @Input() product!: Product;
   @Input() username!: string;
   @Input() admin!: Boolean;
+  @Input() inShoppingCart!: Boolean;
   deleted = false
 
   constructor(private productService: ProductService) { }

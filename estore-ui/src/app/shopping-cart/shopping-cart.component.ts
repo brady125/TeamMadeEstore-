@@ -11,31 +11,31 @@ import { User } from '../user'
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-  
-  user: User | undefined; // honestly probably easier to just get and store the username
-  // should have a products/cart field
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) { }
+  username: string = ""
+  products: Product[] = []
+
+  constructor(private route: ActivatedRoute, private userService: UserService, private productService: ProductService, private router: Router) { }
 
   ngOnInit(): void {
     // call get user and set the field
-    this.getShoppingCart  // not currently calling the function (no parentheses)
+    this.getUser(this.username)
+    this.getShoppingCart()  // not currently calling the function (no parentheses)
   }
 
-  getUser(){
-      // I think its the username at the end of the url not the id
-    const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10); 
+  getUser(username: string){
+    const id = parseInt(this.route.snapshot.paramMap.get('username')!, 10); 
     this.userService.getUser(id)
-      .subscribe(user => this.user = user);
+      .subscribe(user => this.username = user);
   }
 
-  getShoppingCart(user: User){  // shouldn't need paremeter if its a field
-    this.userService.getCart(user.username).subscribe(/*products -> this.products = products*/)
+  getShoppingCart(){
+    this.userService.getCart(this.username).subscribe(p => this.products = p)
       // do something like the comment in subscribe to set the products/cart field once you get it from the service
   }
 
-  checkout(user: User): void{
-      if (this.userService.getCart(user.username) != null){ //should be able to just check the products/cart field rather than calling the service again
+  checkout(): void{
+      if (this.products.length > 0){
         this.router.navigate(['checkout-page']);
       }
       // probably want some sort of message to appear if there are no products

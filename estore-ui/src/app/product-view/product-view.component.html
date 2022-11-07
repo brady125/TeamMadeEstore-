@@ -14,7 +14,12 @@
 </div>
 <!-- buyer options -->
 <div *ngIf="!deleted && !admin">
-    <button routerLink="/shopping-cart/{{username}}">Add to Shopping Cart</button>
+    <div *ngIf="!inShoppingCart">
+        <button (click)="addToShoppingCart()">Add to Shopping Cart</button>
+    </div>
+    <div *ngIf="inShoppingCart">
+        <button (click)="removeFromShoppingCart()">Remove from Shopping Cart</button>
+    </div>
 </div>
 <!-- deleted message -->
 <div *ngIf="deleted">

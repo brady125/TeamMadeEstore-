@@ -12,26 +12,30 @@ import { User } from '../user'
 })
 export class ShoppingCartComponent implements OnInit {
 
-  username: string = ""
+  // username: string = ""-- since the shopping cart is stored in the user it's probably better to go back to storing the whole User my bad
+  user!: User
   products: Product[] = []
 
   constructor(private route: ActivatedRoute, private userService: UserService, private productService: ProductService, private router: Router) { }
 
   ngOnInit(): void {
     // call get user and set the field
-    this.getUser(this.username)
-    this.getShoppingCart()  // not currently calling the function (no parentheses)
+    this.getUser()
+    this.getShoppingCart()
   }
 
-  getUser(username: string){
-    const id = parseInt(this.route.snapshot.paramMap.get('username')!, 10); 
-    this.userService.getUser(id)
-      .subscribe(user => this.username = user);
+  getUser(){
+    // const id = parseInt(this.route.snapshot.paramMap.get('username')!, 10);-- changed to get username since the username is part of the path not the id
+    const username = this.router.url.split("/").pop()!
+    this.userService.getUser(username)
+      .subscribe(user => this.user = user);
   }
 
   getShoppingCart(){
-    this.userService.getCart(this.username).subscribe(p => this.products = p)
+    // this.userService.getCart(this.user.username).subscribe(p => this.products = p)
       // do something like the comment in subscribe to set the products/cart field once you get it from the service
+    // scrach all that it's already in the user
+    this.products = this.user.shoppingCart
   }
 
   checkout(): void{

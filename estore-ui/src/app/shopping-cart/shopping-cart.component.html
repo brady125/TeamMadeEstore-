@@ -1,9 +1,18 @@
 <div class = "body">
-    <!-- insert navigation here -->
+    
+    <nav>
+        <a routerLink="/user-homepage/{{user.username}}">Home</a>
+        <a routerLink="/login">Log Out</a>
+        <a routerLink="/shopping-cart/{{user.username}}">Shopping Cart</a>
+    </nav>
 
-    <li *ngFor="let product of products">
-        <app-product-view [product]="product" [admin]="false" [username]="user.username" [inShoppingCart]="true"></app-product-view>
-    </li>
+    <div class = "cart">
+        <p id="errorMessage" [style.display]="display">{{errorMessage}}</p>
 
-    <button class = "checkout-btn" (click)="checkout()" [disabled]="!contractTypeValid">Checkout!!!</button>
+        <li *ngFor="let product of products">
+            <app-product-view [product]="product" [admin]="false" [username]="user.username" [inShoppingCart]="true"></app-product-view>
+        </li>
+
+        <button class = "checkout-btn" (click)="checkout()">Checkout!!!</button>
+    </div>
 </div>

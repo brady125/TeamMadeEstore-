@@ -3,5 +3,5 @@ import { Product } from "./product";
 export interface User{
     username: string;
     password: string;
-    shoppingCart: Product[]
+    shoppingCart: number[]
 }

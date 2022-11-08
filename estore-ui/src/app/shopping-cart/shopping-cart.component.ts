@@ -13,7 +13,7 @@ import { User } from '../user'
 export class ShoppingCartComponent implements OnInit {
 
   user!: User
-  products: Product[] = []
+  products: number[] = []
   errorMessage = "";
   display = "none";
 

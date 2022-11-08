@@ -13,10 +13,9 @@ export class ProductViewComponent implements OnInit {
   @Input() product!: Product;
   @Input() username!: string;
   @Input() admin!: Boolean;
-  @Input() inShoppingCart!: Boolean;
+  // @Input() inShoppingCart!: Boolean;
   deleted = false
   user!: User
-  deleted = false
   inShoppingCart = false
 
   constructor(private productService: ProductService, private userService: UserService) { }
@@ -24,7 +23,7 @@ export class ProductViewComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUser(this.username).subscribe(user => 
       {this.user = user;
-      this.inShoppingCart = this.user.shoppingcart.includes(this.product.id)})
+      this.inShoppingCart = this.user.shoppingCart.includes(this.product.id)})
   }
 
   delete() {
@@ -32,14 +31,14 @@ export class ProductViewComponent implements OnInit {
   }
 
   addToShoppingCart() {
-    this.user.shoppingcart.push(this.product.id)
+    this.user.shoppingCart.push(this.product.id)
     this.userService.updateUser(this.user).subscribe()
     this.inShoppingCart = true
   }
 
   removeFromShoppingCart() {
-    const index = this.user.shoppingcart.indexOf(this.product.id)
-    this.user.shoppingcart.splice(index, 1)
+    const index = this.user.shoppingCart.indexOf(this.product.id)
+    this.user.shoppingCart.splice(index, 1)
     this.userService.updateUser(this.user).subscribe()
     this.inShoppingCart = false
   }

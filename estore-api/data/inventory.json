@@ -1,1 +1,17 @@
-[{"id":1,"name":"Carl","species":"dog","color":"Brown","age":5,"price":42.5,"description":"A friendly dog"},{"id":2,"name":"Glump","species":"cat","color":"Black","age":3,"price":30.5,"description":"A friendly cat"}]
+[{"id":1,"name":"Carl","species":"dog","color":"Brown","age":5,"price":42.5,"description":"A friendly dog"},
+{"id":2,"name":"Glump","species":"cat","color":"Black","age":3,"price":30.5,"description":"A friendly cat"},
+ {"id":3,"name":"Bobby","species":"dog","color":"White","age":4,"price":40.5,"description":"A friendly dog"},
+ {"id":4,"name":"Molly","species":"cat","color":"Brown","age":2,"price":25.5,"description":"A friendly cat"},
+  {"id":5,"name":"Dash","species":"dog","color":"Ginger","age":10,"price":55.5,"description":"A friendly dog"},
+   {"id":6,"name":"Harwich","species":"cat","color":"Blonde","age":2,"price":20.5,"description":"A friendly cat"}, 
+   {"id":7,"name":"Ashy","species":"dog","color":"Grey","age":10,"price":10.5,"description":"A friendly dog"}, 
+   {"id":8,"name":"Joey","species":"cat","color":"White","age":5,"price":15,"description":"A friendly cat"}, 
+   {"id":9,"name":"Eric","species":"dog","color":"Grey","age":3,"price":20.5,"description":"A friendly dog"},
+    {"id":10,"name":"Zoe","species":"cat","color":"White","age":3,"price":35,"description":"A friendly cat"}, 
+    {"id":11,"name":"Gerald","species":"dog","color":"Brown","age":8,"price":20.25,"description":"A friendly dog"},
+     {"id":12,"name":"Larry","species":"cat","color":"Black","age":1,"price":55.75,"description":"A friendly cat"},
+      {"id":13,"name":"Harry","species":"dog","color":"White","age":2,"price":40.5,"description":"A friendly dog"},
+      {"id":14,"name":"Henry","species":"cat","color":"Blonde","age":6,"price":15.5,"description":"A friendly cat"},
+       {"id":15,"name":"Hunter","species":"dog","color":"Black","age":9,"price":10.75,"description":"A friendly dog"},
+        {"id":16,"name":"Jerry","species":"cat","color":"Brown","age":12,"price":10,"description":"A friendly cat"}, 
+       {"id":17,"name":"Gracie","species":"dog","color":"Blonde","age":2,"price":60.5,"description":"A friendly dog"}]

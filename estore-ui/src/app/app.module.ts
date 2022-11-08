@@ -21,7 +21,6 @@ import { ProductViewComponent } from './product-view/product-view.component';
     LoginComponent,
     AdminPageComponent,
     AdminProductComponent,
-    HomepageComponent,
     UserPageComponent,
     ShoppingCartComponent,
     CheckoutPageComponent,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from "../product";
-import {ProductService } from '../product.service'
+import { ProductService } from '../product.service'
 import { UserService } from '../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../user'
@@ -23,6 +23,10 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
   }
+  
+  search(searchTerm: string): void {
+    this.productService.searchProducts(searchTerm).subscribe(p => this.products = p)
+  }
 
   getUser(){
     const username = this.router.url.split("/").pop()!
@@ -39,11 +43,11 @@ export class ShoppingCartComponent implements OnInit {
 
   checkout(): void{
       if (this.products.length > 0){
-        this.router.navigate(['checkout-page', this.user.username]);
         // should also remove items from inventory and shopping cart
         for (var product of this.products) {
           this.productService.deleteProduct(product.id).subscribe(_ => this.deleted = true)
         }
+        this.router.navigate(['checkout-page', this.user.username]);
       }
       else{
         this.errorMessage = "no items";

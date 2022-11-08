@@ -1,18 +1,42 @@
-<div class = "body">
-    
-    <nav>
-        <a [routerLink]="['/user-homepage/',user.username]">Home</a>
-        <a routerLink="/login">Log Out</a>
-        <a [routerLink]="['/shopping-cart/',user.username]">Shopping Cart</a>
-    </nav>
+<div class="flex justify-between mt-5">
+    <a routerLink="/welcome-page">
+    <img src="../../assets/blue-panth-full.png" class="w-24 h-11 ml-5">
+    </a>
+    <p class="text-6xl text-slate-400 font-bold text-center">Your Shopping Cart</p>
+    <div></div>
+</div>
 
-    <div class = "cart">
-        <p id="errorMessage" [style.display]="display">{{errorMessage}}</p>
+<div class = "pl-6 pr-6">
+    <div class="text-slate-400 h-20 p-10 bg-[#365087] rounded-[40px]">
+        <div class="-mt-3 rounded-2xl w-full flex justify-between">
+            <a [routerLink]="['/user-homepage/',user.username]">
+                <mat-icon class="nav-icons" fontIcon="home"></mat-icon>
+            </a>
 
-        <li *ngFor="let product of products">
-            <app-product-view [product]="product" [admin]="false" [username]="user.username" [cartPage]="true"></app-product-view>
-        </li>
+            <button (click)="checkout()">
+                <mat-icon class="nav-icons" fontIcon="checkout"></mat-icon>
+            </button>
 
-        <button class = "checkout-btn" (click)="checkout()">Checkout!!!</button>
+            <a routerLink="/login">
+                <mat-icon class="nav-icons" fontIcon="logout"></mat-icon>
+            </a>
+
+            <!-- search bar -->
+            <div class="box -mt-3">
+                <form name="search">
+                    <input id="searchbar" #searchbar (input)="search(searchbar.value)" 
+                    type="text" class="input" name="txt" onmouseout="this.value = ''; this.blur();">
+                </form>
+                <i><mat-icon class="-ml-6 text-slate-400" fontIcon="search"></mat-icon></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="flex flex-row gap-4 p-5">
+    <p id="errorMessage" [style.display]="display">{{errorMessage}}</p>
+
+    <div *ngFor="let product of products">
+        <app-product-view [product]="product" [admin]="false" [username]="user.username" [cartPage]="true"></app-product-view>
     </div>
 </div>

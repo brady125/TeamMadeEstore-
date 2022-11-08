@@ -1,11 +1,12 @@
-<div class = "whole-page">
+<div class = "m-10">
     <h1 class = "title-name">Galactic Pets</h1>
     <div class = "admin-product-body">
         <!-- navigation bar -->
-        <nav>
+        <nav class="flex gap-4">
             <a routerLink="/admin-homepage">Home</a>
             <a routerLink="/login">Log Out</a>
         </nav>
+        <br>
         <!-- Editing Fields -->
         <h3>Name: </h3>
         <textarea [(ngModel)]="product.name" rows="1">{{product.name}}</textarea>

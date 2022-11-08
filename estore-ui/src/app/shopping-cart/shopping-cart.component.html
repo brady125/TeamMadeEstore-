@@ -1,0 +1,18 @@
+<div class = "body">
+    
+    <nav>
+        <a routerLink="/user-homepage/{{user.username}}">Home</a>
+        <a routerLink="/login">Log Out</a>
+        <a routerLink="/shopping-cart/{{user.username}}">Shopping Cart</a>
+    </nav>
+
+    <div class = "cart">
+        <p id="errorMessage" [style.display]="display">{{errorMessage}}</p>
+
+        <li *ngFor="let product of products">
+            <app-product-view [product]="product" [admin]="false" [username]="user.username" [inShoppingCart]="true"></app-product-view>
+        </li>
+
+        <button class = "checkout-btn" (click)="checkout()">Checkout!!!</button>
+    </div>
+</div>

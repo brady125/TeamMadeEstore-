@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AdminProductComponent } from './admin-product/admin-product.component';
 import { UserPageComponent } from './user-page/user-page.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { ProductViewComponent } from './product-view/product-view.component';
 
 @NgModule({
@@ -19,7 +21,10 @@ import { ProductViewComponent } from './product-view/product-view.component';
     LoginComponent,
     AdminPageComponent,
     AdminProductComponent,
+    HomepageComponent,
     UserPageComponent,
+    ShoppingCartComponent,
+    CheckoutPageComponent,
     ProductViewComponent
   ],
   imports: [

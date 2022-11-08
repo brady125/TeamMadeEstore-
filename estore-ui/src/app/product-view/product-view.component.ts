@@ -13,6 +13,8 @@ export class ProductViewComponent implements OnInit {
   @Input() product!: Product;
   @Input() username!: string;
   @Input() admin!: Boolean;
+  @Input() inShoppingCart!: Boolean;
+  deleted = false
   user!: User
   deleted = false
   inShoppingCart = false

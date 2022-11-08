@@ -15,6 +15,10 @@
     <input id="password" #password matInput>
   </mat-form-field>
   
+  <p class="text-slate-400 text-center">Don't have an account yet? <a routerLink="/sign-up"><button (click)="deactivate()">
+    Sign up Here
+  </button></a></p>
+
   <button id="login-button" mat-raised-button 
   (click)="login(username.value, password.value)">Log in ! ! !</button>
 

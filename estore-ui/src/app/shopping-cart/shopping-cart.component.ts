@@ -16,6 +16,7 @@ export class ShoppingCartComponent implements OnInit {
   products: Product[] = []
   errorMessage = "";
   display = "none";
+  deleted = false;
 
   constructor(private userService: UserService, private router: Router, private productService: ProductService) { }
 
@@ -40,6 +41,9 @@ export class ShoppingCartComponent implements OnInit {
       if (this.products.length > 0){
         this.router.navigate(['checkout-page', this.user.username]);
         // should also remove items from inventory and shopping cart
+        for (var product of this.products) {
+          this.productService.deleteProduct(product.id).subscribe(_ => this.deleted = true)
+        }
       }
       else{
         this.errorMessage = "no items";

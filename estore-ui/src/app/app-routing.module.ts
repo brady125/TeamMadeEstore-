@@ -15,7 +15,6 @@ const routes: Routes = [
   { path: "admin-homepage", component: AdminPageComponent},
   { path: "user-homepage/:username", component: UserPageComponent },
   { path: "admin-product-page/:id", component: AdminProductComponent },
-  // { path: "user-product-page/:userid/:id", component: UserProductComponent },
   { path: "shopping-cart/:username", component: ShoppingCartComponent },
   { path: "checkout-page/:username", component: CheckoutPageComponent }
 ];

@@ -1,5 +1,5 @@
 <!-- Information -->
-<div *ngIf="!deleted && !inShoppingCart">
+<div *ngIf="!deleted && !cartPage">
     <h2>{{product.name}}</h2>
     <p>Species: {{product.species}}</p>
     <p>Color: {{product.color}}</p>
@@ -13,7 +13,7 @@
     <button (click)="delete()">Delete</button>
 </div>
 <!-- buyer options -->
-<div *ngIf="!deleted && !admin">
+<div *ngIf="!deleted && !admin && !cartPage">
     <div *ngIf="!inShoppingCart">
         <button (click)="addToShoppingCart()">Add to Shopping Cart</button>
     </div>
@@ -26,11 +26,8 @@
     <p #deletedMessage>{{product.name}} has been deleted.</p>
 </div>
 <!-- shopping cart view -->
-<div *ngIf="!deleted && inShoppingCart">
+<div *ngIf="!deleted && cartPage && inShoppingCart">
     <h2>{{product.name}}</h2>
     <p>Price: ${{product.price.toFixed(2)}}</p>
-</div>
-<!-- remove shopping cart -->
-<div *ngIf="inShoppingCart && !deleted">
-    <button (click)="delete()">Remove</button>
+    <button (click)="removeFromShoppingCart()">Remove</button>
 </div>

@@ -13,30 +13,33 @@ import { User } from '../user'
 export class ShoppingCartComponent implements OnInit {
 
   user!: User
-  products: number[] = []
+  products: Product[] = []
   errorMessage = "";
   display = "none";
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private productService: ProductService) { }
 
   ngOnInit(): void {
     this.getUser();
-    this.getShoppingCart();
   }
 
   getUser(){
     const username = this.router.url.split("/").pop()!
     this.userService.getUser(username)
-      .subscribe(user => this.user = user);
+      .subscribe(user => {this.user = user; this.getShoppingCart();});
   }
 
   getShoppingCart(){
-    this.products = this.user.shoppingCart;
+    this.products = [];
+    for (var productID of this.user.shoppingcart) {
+      this.productService.getProduct(productID).subscribe(product => this.products.push(product))
+    }
   }
 
   checkout(): void{
       if (this.products.length > 0){
-        this.router.navigate(['checkout-page']);
+        this.router.navigate(['checkout-page', this.user.username]);
+        // should also remove items from inventory and shopping cart
       }
       else{
         this.errorMessage = "no items";

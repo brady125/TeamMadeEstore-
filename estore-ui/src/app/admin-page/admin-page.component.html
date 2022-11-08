@@ -12,7 +12,7 @@
         <button routerLink="/admin-product/0">Add Product</button>
         <!-- for loop to display all products -->
         <li *ngFor="let product of products">
-            <app-product-view [product]="product" [admin]="true"></app-product-view>
+            <app-product-view [product]="product" [admin]="true" [cartPage]="false"></app-product-view>
         </li>
         <div *ngIf="products.length == 0">
             <p>There are no products in the inventory that match your search.</p>

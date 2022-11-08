@@ -55,6 +55,10 @@ export class SignUpComponent implements AfterViewInit {
   public canDeactivate(): Promise<boolean> {
     return this.float_up.finished; 
   }
+  
+  public deactivate() {
+    this.float_up.finished = true;
+  }
 
   /**
    * Creates a new account and logs user in

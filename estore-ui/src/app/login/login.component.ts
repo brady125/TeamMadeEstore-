@@ -54,7 +54,11 @@ export class LoginComponent implements AfterViewInit {
     private _snackBar: MatSnackBar) { }
 
   public canDeactivate(): Promise<boolean> {
-    return this.float_up.finished;  
+    return this.float_up.finished;
+  }
+
+  public deactivate() {
+    this.float_up.finished = true;
   }
   
   login(username: string, password: string) {

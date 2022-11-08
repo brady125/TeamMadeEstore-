@@ -1,38 +1,37 @@
 <a routerLink="/welcome-page">
-    <img src="../../assets/blue-panth-full.png" class="w-24 h-11 mt-5 ml-5">
+    <img (click)="deactivate()" src="../../assets/blue-panth-full.png" class="w-24 h-11 mt-5 ml-5">
 </a>
     
-    <div class="login-container">
-      
-      <p class="font-Karla text-center font-bold text-4xl text-slate-400">Login</p>
-      
-      <mat-form-field class="self-center ml-20 mt-5 flex flex-col items-start w-64 text-white">
-        <mat-label class="text-slate-500">username</mat-label>
-        <input id="username" #username matInput>
-      </mat-form-field>
-      
-      <mat-form-field class="self-center ml-20 flex flex-col items-start w-64 text-white">
-        <mat-label class="text-slate-500">password</mat-label>
-        <input id="password" #password matInput>
-      </mat-form-field>
-      
-      <button id="login-button" mat-raised-button 
-      (click)="login(username.value, password.value)">Log in ! ! !</button>
-    
-      </div>
-      
-      <div class="absolute bottom-0 w-full">
-        <svg class="waves-bottom-pg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-        viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-        <defs>
-        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-        </defs>
-        <g class="parallax">
-        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(27, 43, 79, 0.7)" />
-        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(27, 43, 79, 0.5)" />
-        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(27, 43, 79, 0.3)" />
-        <use xlink:href="#gentle-wave" x="48" y="7" fill="#1b2b4f" />
-        </g>
-        </svg>
-      </div>
+<div class="login-container">
+  <p class="font-Karla text-center font-bold text-4xl text-slate-400">Login</p>
+  
+  <mat-form-field class="self-center ml-20 mt-5 flex flex-col items-start w-64 text-white">
+    <mat-label class="text-slate-500">username</mat-label>
+    <input id="username" #username matInput>
+  </mat-form-field>
+  
+  <mat-form-field class="self-center ml-20 flex flex-col items-start w-64 text-white">
+    <mat-label class="text-slate-500">password</mat-label>
+    <input id="password" #password matInput>
+  </mat-form-field>
+  
+  <button id="login-button" mat-raised-button 
+  (click)="login(username.value, password.value)">Log in ! ! !</button>
+
+  </div>
+  
+  <div class="absolute bottom-0 w-full">
+    <svg class="waves-bottom-pg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+    <defs>
+    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+    </defs>
+    <g class="parallax">
+    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(27, 43, 79, 0.7)" />
+    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(27, 43, 79, 0.5)" />
+    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(27, 43, 79, 0.3)" />
+    <use xlink:href="#gentle-wave" x="48" y="7" fill="#1b2b4f" />
+    </g>
+    </svg>
+</div>
     

@@ -90,6 +90,7 @@ public class ProductControllerTest {
         // when createProduct is called, return true simulating successful
         // creation and save
         when(productMockDAO.createProduct(product)).thenReturn(product);
+        when(productMockDAO.getProduct(5)).thenReturn(product);
 
         // Invoke
         ResponseEntity<Product> response = pc.createProduct(product);

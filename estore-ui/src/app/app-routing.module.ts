@@ -5,20 +5,26 @@ import { AdminProductComponent } from './admin-product/admin-product.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { UserPageComponent } from './user-page/user-page.component';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { CanDeactivateGuard } from './routing-guard';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 
 const routes: Routes = [
-  { path: "", redirectTo: "/sign-up", pathMatch: 'full'},
-  { path: "sign-up", component: SignUpComponent },
-  { path: "login", component: LoginComponent },
-  { path: "admin-homepage", component: AdminPageComponent },
+  { path: "", redirectTo: "/welcome-page", pathMatch: 'full'},
+  { path: "welcome-page", component: WelcomePageComponent },
+  { path: "sign-up", component: SignUpComponent, canDeactivate: [CanDeactivateGuard]},
+  { path: "login", component: LoginComponent, canDeactivate: [CanDeactivateGuard]},
+  { path: "admin-homepage", component: AdminPageComponent},
   { path: "user-homepage/:username", component: UserPageComponent },
-  { path: "admin-product-page/:id", component: AdminProductComponent },
-  // { path: "user-product-page/:userid/:id", component: UserProductComponent },
-  // { path: "shopping-cart/:userid", component: ShoppingCartComponent }*/
+  { path: "admin-product/:id", component: AdminProductComponent },
+  { path: "shopping-cart/:username", component: ShoppingCartComponent },
+  { path: "checkout-page/:username", component: CheckoutPageComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [CanDeactivateGuard]
 })
 export class AppRoutingModule { }

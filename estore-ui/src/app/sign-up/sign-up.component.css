@@ -1,54 +1,52 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url(//fonts.googleapis.com/css?family=Lato:300:400);
 
-.whole-page{
-    margin: 5%;
+.waves-bottom-pg {
+  position:relative;
+  width: 100%;
+  height:15vh;
+  min-height:100px;
+  max-height:150px;
 }
 
-.sign-in-body{
-    margin: auto;
-    width: 50%;
-    margin-top: 5%;
-    background-color: #cad2c5;
-    padding: 2%;
+/* Animation */
+
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5)     infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+@keyframes move-forever {
+  0% {
+   transform: translate3d(-90px,0,0);
+  }
+  100% { 
+    transform: translate3d(85px,0,0);
+  }
 }
 
-.title{
-    text-align: center;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.mat-focus-indicator {
+    @apply mt-7 w-48 h-7 self-center border-2 rounded-3xl border-solid text-slate-400;
 }
 
-.sign-in-inputs{
-    padding-left: 10%;
-    padding-right: 10%;
-    font-size: 18px;
-    font-family: 'Poppins', sans-serif;
-}
-
-p {
-    font-family: 'Poppins', sans-serif;
-}
-
-.title-name {
-    font-family: 'Poppins', sans-serif;
-    border-bottom: 3px solid black;
-    padding-bottom: 10px;
-    margin-right: 10%;
-}
-
-.center-button{
-    text-align: center;
-}
-
-.sign-in-button{
-    margin-top: 5%;
-    font-size: 15px;
-}
-
-h2{
-    font-size: 40px;
-    font-family: 'Poppins', sans-serif;
-}
-
-#username, #password{
-    width: 100%;
-    height: 20px;
+.signup-container {
+  @apply absolute flex flex-col rounded-3xl pt-7 inset-0 
+  m-auto w-96 h-80 bg-[#141f38] overflow-hidden;
 }

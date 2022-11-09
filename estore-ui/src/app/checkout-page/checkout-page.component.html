@@ -1,0 +1,25 @@
+<div class="flex justify-between mt-5">
+    <a routerLink="/welcome-page">
+    <img src="../../assets/blue-panth-full.png" class="w-24 h-11 ml-5">
+    </a>
+    <p class="text-6xl text-slate-400 font-bold text-center">Galactic Pets</p>
+    <div></div>
+</div>
+
+<div class = "pl-6 pr-6">
+    <div class="text-slate-400 h-20 p-10 bg-[#365087] rounded-[40px]">
+        <div class="-mt-3 rounded-2xl w-full flex justify-between">
+            <a routerLink="/user-homepage/'{{username}}">
+                <mat-icon class="nav-icons" fontIcon="home"></mat-icon>
+            </a>
+            <a routerLink="/shopping-cart/{{username}}">
+                <mat-icon class="nav-icons" fontIcon="shopping_cart"></mat-icon>
+            </a>
+            <a routerLink="/login">
+                <mat-icon class="nav-icons" fontIcon="logout"></mat-icon>
+            </a>
+        </div>
+    </div>
+</div>
+
+<p class="text-5xl self-center">Your items have been purchased!</p>

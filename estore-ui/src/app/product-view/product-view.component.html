@@ -1,0 +1,35 @@
+<!-- Information -->
+<div class="w-52 h-[270px] p-5 bg-[#182545] rounded-2xl" *ngIf="!deleted && !cartPage">
+    <h2>{{product.name}}</h2>
+    <p>Species: {{product.species}}</p>
+    <p>Color: {{product.color}}</p>
+    <p>Age: {{product.age}}</p>
+    <p>Desription: {{product.description}}</p>
+    <p>Price: ${{product.price.toFixed(2)}}</p>
+    <!-- admin options -->
+    <div class="flex gap-4 ml-3" *ngIf="!deleted && admin">
+        <button class="bg-slate-600 h-7 w-16 rounded-2xl" routerLink="/admin-product/{{product.id}}">Edit</button>
+        <button class="bg-slate-600 h-7 w-16 rounded-2xl" (click)="delete()">Delete</button>
+    </div>
+    <!-- buyer options -->
+    <div class="bg-slate-600 h-7 rounded-2xl" *ngIf="!deleted && !admin && !cartPage">
+        <div *ngIf="!inShoppingCart">
+            <button class="ml-4 mt-1" (click)="addToShoppingCart()">Add to Shopping Cart</button>
+        </div>
+        <div *ngIf="inShoppingCart">
+            <button class="ml-6 mt-1" (click)="removeFromShoppingCart()">Remove from Cart</button>
+        </div>
+    </div>
+</div>
+<!-- deleted message -->
+<div *ngIf="deleted">
+    <p #deletedMessage>{{product.name}} has been deleted.</p>
+</div>
+<!-- shopping cart view -->
+<div class="w-36 h-40 p-5 bg-[#182545] rounded-2xl" *ngIf="!deleted && cartPage && inShoppingCart">
+    <h2>{{product.name}}</h2>
+    <p>Price: ${{product.price.toFixed(2)}}</p>
+    <div class="bg-slate-400 rounded-2xl text-slate-800 mt-5">
+        <button class="ml-6" (click)="removeFromShoppingCart()">Remove</button>
+    </div>
+</div>

@@ -23,9 +23,10 @@ Team Name: The Restful Gods
 ## How to run it
 
 1. Clone the repository and go to the root directory.
-2. Execute `mvn compile exec:java`
-3. Open in your browser `http://localhost:8080/`
-4.  _add any other steps required or examples of how to use/run_
+2. run 'ng add @angular/material'
+3. Execute `mvn compile exec:java`
+4. Open in your browser `http://localhost:8080/`
+5.  _add any other steps required or examples of how to use/run_
 
 ## Known bugs and disclaimers
 (It may be the case that your implementation is not perfect.)

@@ -19,7 +19,7 @@ geometry: margin=1in
 
 ## Executive Summary
 
-Our project is an e-store that sells animals. Users are able to make and
+Our project is an e-store that sells interstellar animals. Users are able to make and
 login into an account in order to browse, search, and order the animals 
 we offer in our store. There is one admin account that is responsible 
 for adding, deleting, and updating products within the e-store. This 
@@ -36,23 +36,37 @@ and design of the system, and code coverage of our unit tests.
 | Term | Definition |
 |------|------------|
 | SPA | Single Page |
+| IO | In/Out |
+| DAO | Data Acess Object |
 
 
 ## Requirements
 
-This section describes the features of the application.
+The application has an inventory of products that can be added to, removed from, modified, and filtered, As well as individual user accounts that
+can be logged in to to provide individual shopping carts for each user. The application also has admin accounts that grant access to in browser
+tools for editing the virtual inventory and products. Users are also able to create new accounts if they don't have one yet.
 
 > _In this section you do not need to be exhaustive and list every
 > story.  Focus on top-level features from the Vision document and
 > maybe Epics and critical Stories._
 
 ### Definition of MVP
+An MVP is the the simplest version of an application that allows for user testing and feedback for further development of said application
 > _Provide a simple description of the Minimum Viable Product._
 
 ### MVP Features
+Users must be able to log in to unique accounts, and display the website differently according to the users unique data.
+Customers must be able to view, search, and add products to their shopping cart, as well as be able to check out their shopping cart for purchase.
+The store owner, through an admin account, must be able to add to, remove from, and modify the virtual inventory as well as the products inside.
+The website should save any changes to the inventory or user accounts to persistent files.
+The website should use both a username and password to authenticate each user
 > _Provide a list of top-level Epics and/or Stories of the MVP._
 
 ### Roadmap of Enhancements
+Back-end file IO, model, and control for products
+Sign up / Log in page and view / control interaction for user authentication
+Admin Pages including product editing page
+Customer Pages including Shopping cart page and functionality
 > _Provide a list of top-level features in the order you plan to consider them._
 
 
@@ -118,9 +132,8 @@ with the e-store application.
 
 
 ### Model Tier
-> _Provide a summary of this tier of your architecture. This
-> section will follow the same instructions that are given for the View
-> Tier above._
+The model tier featured two different objects, Users and Products. Each featured relevant attributes like Username, Price, Description that could be accessed in the front end.
+Shopping carts are an attribute of Users, and store an array of product IDs that can be used to access the appropriate product. Each of the two products have a file DAO that stores a collection of all existing user or product objects in a Map. The DAOs are used to save products or users to JSON files for persistent object information
 
 > _At appropriate places as part of this narrative provide one or more
 > static models (UML class diagrams) with some details such as critical attributes and methods._

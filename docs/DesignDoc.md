@@ -70,7 +70,7 @@ Customer Pages including Shopping cart page and functionality
 
 This section describes the application domain.
 
-![Domain Model](domain-model-placeholder.png)
+![Domain Model](domain-model.png)
 
 > _Provide a high-level overview of the domain for this application. You
 > can discuss the more important domain entities and their relationship
@@ -118,9 +118,7 @@ The application routes to a page with two buttons to either log in or sign up, a
 
 
 ### ViewModel Tier
-> _Provide a summary of this tier of your architecture. This
-> section will follow the same instructions that are given for the View
-> Tier above._
+Our ViewModel tier comprised of two CRUD based controllers for users and products. They both use Java Spring Boot to create REST API functions as our ViewModel tier.
 
 > _At appropriate places as part of this narrative provide one or more
 > static models (UML class diagrams) with some details such as critical attributes and methods._

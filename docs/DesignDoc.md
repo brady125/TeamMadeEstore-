@@ -68,14 +68,9 @@ Customer Pages including Shopping cart page and functionality
 
 ## Application Domain
 
-This section describes the application domain.
-
 ![Domain Model](domain-model.png)
 
-> _Provide a high-level overview of the domain for this application. You
-> can discuss the more important domain entities and their relationship
-> to each other._
-
+The website starts at the top of the view tier with default routing to the landing page. From there there are two links to the login and sign-up page. Customers can access their homepage from either the log in or the sign up page, however admins can only access their homepage by logging in, as it's impossible to sign up as an admin. Admins and customers both have unique access to the edit product page and the shopping cart page respectively. Both can also chose to log back out to the login page, or go back to the landing page. Most pages pull persistent user and product data from the Spring server's web service. The connections of each page to their respective controller is represented by green and pink arrows. Two ObjectControllers take up the ViewModel tier, and use CRUD based html requests and responses to transmit object data. These controllers use ObjectFileDAOs to load, cache, and save objects using json files.
 
 ## Architecture and Design
 
@@ -118,17 +113,12 @@ The application routes to a page with two buttons to either log in or sign up, a
 
 
 ### ViewModel Tier
+![ViewModel tier static class model](viewmodel-static-model.png)
 Our ViewModel tier comprised of two CRUD based controllers for users and products. They both use Java Spring Boot to create REST API functions as our ViewModel tier.
 
-> _At appropriate places as part of this narrative provide one or more
-> static models (UML class diagrams) with some details such as critical attributes and methods._
-
-
 ### Model Tier
-The model tier featured two different objects, Users and Products. Each featured relevant attributes like Username, Price, Description that could be accessed in the front end. Shopping carts are an attribute of Users, and store an array of product IDs that can be used to access the appropriate product. Each of the two products have a file DAO that stores a collection of all existing user or product objects in a Map. The DAOs are used to save products or users to JSON files for persistent object information
-
-> _At appropriate places as part of this narrative provide one or more
-> static models (UML class diagrams) with some details such as critical attributes and methods._
+![Model tier static class model](model-static-model.png)
+The model tier featured two different objects, Users and Products. Each featured relevant attributes like Username, Price, Description that would be accessed in the front end. Shopping carts are an attribute of Users, and store an array of product IDs that can be used to access the appropriate product from the inventory. Each of the two objects have a respective file DAO that stores a collection of all existing user or product objects in a Map. The DAOs are used to save products or users to JSON files for persistent object information
 
 ### Static Code Analysis/Design Improvements
 

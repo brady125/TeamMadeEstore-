@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { UserPageComponent } from './user-page.component';
+
 
 describe('UserPageComponent', () => {
   let component: UserPageComponent;
@@ -21,3 +21,5 @@ describe('UserPageComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+

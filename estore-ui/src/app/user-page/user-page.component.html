@@ -32,7 +32,7 @@
 </div>
 
 <!-- for loop to display all products -->
-<div class="flex flex-row gap-4 p-5">
+<div class="flex flex-wrap gap-4 p-5">
     <div class="text-slate-400" *ngFor="let product of products">
         <app-product-view [product]="product" [admin]="false" [username]="username">
         </app-product-view>
